@@ -1,50 +1,3 @@
-<script setup>
-import { onMounted, ref, reactive } from 'vue'
-import request from '@/utils/request'
-import { useForm } from 'vee-validate'
-import * as yup from 'yup'
-const captcha = ref('')
-
-const { defineField, errors, handleSubmit, validate } = useForm({
-  validationSchema: {
-    username: yup.string().required({ message: '请输入用户名' }).email({ message: '请输入正确的邮箱' }),
-    password: yup.string().required({ message: '请输入密码' }).min(6, { message: '密码不能少于6位' }),
-    code: yup.string().required({ message: '请输入验证码' }).min(4, { message: '验证码只支持4位' }).max(4, { message: '验证码只支持4位' })
-  },
-})
-
-const [username, usernameAttrs] = defineField('username', { validateOnModelUpdate: true })
-const [password, passwordAttrs] = defineField('password')
-const [code, codeAttrs] = defineField('code')
-
-
-
-// 登录
-const handleLogin = async (e) => {
-  e.preventDefault()
-  const { valid } = await validate()
-  if (!valid) return false
-  const params = {
-    username: username.value,
-    password: password.value,
-    code: code.value,
-  }
-
-  console.log(params)
-}
-
-
-const getCaptcha = async () => {
-  const res = await request.get('/captcha')
-  captcha.value = res
-}
-
-onMounted(() => {
-  getCaptcha()
-})
-
-</script>
-
 <template>
   <div class="bg-[#f2f2f2] min-h-screen flex items-center">
     <div class="flex gap-2 layui-container rounded-xl overflow-hidden items-center bg-white">
@@ -119,7 +72,54 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<script setup>
+import { onMounted, ref, reactive } from 'vue'
+import request from '@/utils/request'
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+const captcha = ref('')
+
+const { defineField, errors, handleSubmit, validate } = useForm({
+  validationSchema: {
+    username: yup.string().required({ message: '请输入用户名' }).email({ message: '请输入正确的邮箱' }),
+    password: yup.string().required({ message: '请输入密码' }).min(6, { message: '密码不能少于6位' }),
+    code: yup.string().required({ message: '请输入验证码' }).min(4, { message: '验证码只支持4位' }).max(4, { message: '验证码只支持4位' })
+  },
+})
+
+const [username, usernameAttrs] = defineField('username', { validateOnModelUpdate: true })
+const [password, passwordAttrs] = defineField('password')
+const [code, codeAttrs] = defineField('code')
+
+
+
+// 登录
+const handleLogin = async (e) => {
+  e.preventDefault()
+  const { valid } = await validate()
+  if (!valid) return false
+  const params = {
+    username: username.value,
+    password: password.value,
+    code: code.value,
+  }
+
+  console.log(params)
+}
+
+
+const getCaptcha = async () => {
+  const res = await request.get('/captcha')
+  captcha.value = res
+}
+
+onMounted(() => {
+  getCaptcha()
+})
+
+</script>
+
+<style lang="scss" scoped>
 .demo-login-container {
   width: 320px;
   margin: 21px auto 0;
