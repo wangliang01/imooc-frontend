@@ -1,11 +1,25 @@
 <script setup>
+import { onMounted, ref } from 'vue'
+import request from '@/utils/request'
+
+const captcha = ref('')
+
+const getCaptcha = async () => {
+  const res = await request.get('/captcha')
+  captcha.value = res
+}
+
+onMounted(() => {
+  getCaptcha()
+})
+
 </script>
 
 <template>
-  <div class="bg-[#f2f2f2] min-h-screen pt-[200px]">
+  <div class="bg-[#f2f2f2] min-h-screen flex items-center">
     <div class="flex gap-2 layui-container rounded-xl overflow-hidden items-center bg-white">
-      <div class="">
-        <img src="https://picsum.photos/700" alt="">
+      <div class="w-[700px] h-[600px]">
+        <img src="https://picsum.photos/700/600" alt="">
       </div>
       <div class="flex-1">
         <h1 class="text-center font-bold text-2xl">IMOOC管理系统</h1>
@@ -42,8 +56,7 @@
                 </div>
                 <div class="layui-col-xs5">
                   <div style="margin-left: 10px;">
-                    <img src="https://www.oschina.net/action/user/captcha"
-                      onclick="this.src='https://www.oschina.net/action/user/captcha?t='+ new Date().getTime();">
+                    <div v-html="captcha" @click="getCaptcha" class="cursor-pointer"></div>
                   </div>
                 </div>
               </div>
