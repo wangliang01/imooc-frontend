@@ -1,29 +1,65 @@
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
 import request from '@/utils/request'
-import { useForm } from 'vee-validate'
-import * as yup from 'yup'
+import useVuelidate from '@vuelidate/core'
+import { required, email, minLength, maxLength, helpers} from '@vuelidate/validators'
+
 const captcha = ref('')
 
-const { defineField, errors, handleSubmit, validate } = useForm({
-  validationSchema: {
-    username: yup.string().required({ message: '请输入用户名' }).email({ message: '请输入正确的邮箱' }),
-    password: yup.string().required({ message: '请输入密码' }).min(6, { message: '密码不能少于6位' }),
-    code: yup.string().required({ message: '请输入验证码' }).min(4, { message: '验证码只支持4位' }).max(4, { message: '验证码只支持4位' })
-  },
+const state = reactive({
+  username: '',
+  password: '',
+  code: ''
 })
 
-const [username, usernameAttrs] = defineField('username', { validateOnModelUpdate: true })
-const [password, passwordAttrs] = defineField('password')
-const [code, codeAttrs] = defineField('code')
+const rules = {
+  username: {
+    required: helpers.withMessage('请输入用户名', required),
+    email: helpers.withMessage('请输入正确的邮箱', email)
+  },
+  password: {
+    required: helpers.withMessage('请输入密码', required),
+    minLength: helpers.withMessage('密码最少为6位', minLength(6))
+  },
+  code: {
+    required: helpers.withMessage('请输入验证码', required),
+    minLength: helpers.withMessage('验证码只支持4位', minLength(4)),
+    maxLength: helpers.withMessage('验证码只支持4位', maxLength(4))
+  }
+}
 
+const $v = useVuelidate(rules, state)
 
+// 校验
+// const validate = () => {
+//   return new Promise((resolve, reject) => {
+//     const errMsg = []
+//     if (!username.value) {
+//       errMsg.push('请输入用户名')
+//     }
+//     if (!password.value) {
+//       errMsg.push('请输入密码')
+//     }
+//     if (!code.value) {
+//       errMsg.push('请输入验证码')
+//     }
+
+//     const valid = errMsg.length === 0
+
+//     resolve(valid)
+//   })
+// }
 
 // 登录
 const handleLogin = async (e) => {
   e.preventDefault()
-  const {valid} = await validate()
- if (!valid) return false
+  // const valid = await validate()
+  $v.value.$validate()
+  console.log($v.value)
+  if ($v.value.$invalid) {
+    return
+  }
+  console.log('submit')
 }
 
 
@@ -53,10 +89,9 @@ onMounted(() => {
                 <div class="layui-input-prefix">
                   <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="username" v-model.trim="username" v-bind="usernameAttrs" lay-verify="required"
-                  placeholder="用户名" lay-reqtext="请填写用户名" autocomplete="off" class="layui-input" lay-affix="clear">
-                <p class="text-xs text-red-600" v-if="errors.username">{{ errors.username.message }}</p>
-
+                <input type="text" name="username" v-model.trim="state.username" lay-verify="required" placeholder="用户名"
+                  lay-reqtext="请填写用户名" autocomplete="off" class="layui-input" lay-affix="clear">
+                <p v-if="$v.username.$error" class="text-xs text-red-600">{{ $v.username.$errors[0].$message }}</p>
               </div>
             </div>
             <div class="layui-form-item">
@@ -64,9 +99,9 @@ onMounted(() => {
                 <div class="layui-input-prefix">
                   <i class="layui-icon layui-icon-password"></i>
                 </div>
-                <input type="password" name="password" v-model="password" v-bind="passwordAttrs" lay-verify="required"
+                <input type="password" name="password" v-model="state.password" lay-verify="required"
                   placeholder="密   码" lay-reqtext="请填写密码" autocomplete="off" class="layui-input" lay-affix="eye">
-                <p class="text-xs text-red-600" v-if="errors.password">{{ errors.password.message }}</p>
+                <p v-if="$v.password.$error" class="text-xs text-red-600">{{ $v.password.$errors[0].$message }}</p>
               </div>
             </div>
             <div class="layui-form-item">
@@ -76,9 +111,9 @@ onMounted(() => {
                     <div class="layui-input-prefix">
                       <i class="layui-icon layui-icon-vercode"></i>
                     </div>
-                    <input type="text" name="captcha" v-model="code" v-bind="codeAttrs" lay-verify="required"
-                      placeholder="验证码" lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
-                    <p class="text-xs text-red-600" v-if="errors.code">{{ errors.code.message }}</p>
+                    <input type="text" name="captcha" v-model="state.code" lay-verify="required" placeholder="验证码"
+                      lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
+                    <p v-if="$v.code.$error" class="text-xs text-red-600">{{ $v.code.$errors[0].$message }}</p>
                   </div>
                 </div>
                 <div class="layui-col-xs5">
