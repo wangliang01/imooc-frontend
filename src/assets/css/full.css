@@ -1,6 +1,5 @@
 /*! 默认风格 */
 
-html body{margin-top:0; margin-left: 136px;}
 html .fly-full{margin-top: 0;}
 
 .main{width:auto; margin:15px 24px 15px 24px;}
@@ -40,14 +39,12 @@ html .fly-full{margin-top: 0;}
 
 /* 适配 */
 @media screen and (max-width: 1024px) {
-  html body{margin-left: 140px;}
   .main{margin: 15px 10px;}
   .content{margin: 0;}
   .edge{display:none}
 }
 
 @media screen and (max-width: 750px) {
-  html body{margin-left:0;}
   .header{left:-140px;}
   .edge{display: block;}
 }
