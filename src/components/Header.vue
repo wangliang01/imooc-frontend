@@ -1,5 +1,5 @@
 <template>
-  <div class="fly-header layui-bg-black">
+  <div class="h-15 layui-bg-black">
     <div class="layui-container">
       <div class="flex items-center">
         <a class="w-[200px] h-[60px]" href="/">
@@ -7,22 +7,22 @@
         </a>
         <ul class="layui-nav fly-nav layui-hide-xs">
           <li class="layui-nav-item layui-this">
-            <a href="/">
+            <a href="/" class="flex items-center">
               <i class="iconfont icon-jiaoliu"></i>交流
             </a>
           </li>
           <li class="layui-nav-item">
-            <a href="case/case.html">
+            <a href="case/case.html" class="flex items-center">
               <i class="iconfont icon-iconmingxinganli"></i>案例
             </a>
           </li>
           <li class="layui-nav-item">
-            <a href="http://www.layui.com/" target="_blank">
+            <a href="http://www.layui.com/" target="_blank" class="flex items-center">
               <i class="iconfont icon-ui"></i>框架
             </a>
           </li>
         </ul>
-        <ul class="layui-nav  ml-auto">
+        <ul class="ml-auto layui-nav">
           <!-- 未登入的状态 -->
           <li class="layui-nav-item">
             <router-link class="iconfont icon-touxiang layui-hide-xs" to="/user123123"></router-link>

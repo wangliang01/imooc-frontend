@@ -1,72 +1,114 @@
 <template>
-  <div class="bg-[#f2f2f2] min-h-screen flex items-center">
-    <div class="flex gap-2 layui-container rounded-xl overflow-hidden items-center bg-white">
-      <div class="w-[700px] h-[600px]">
-        <img src="https://picsum.photos/700/600" alt="">
-      </div>
-      <div class="flex-1">
-        <h1 class="text-center font-bold text-2xl">IMOOC管理系统</h1>
-        <form class="layui-form flex-1">
-          <div class="demo-login-container">
-            <div class="layui-form-item">
-              <div class="layui-input-wrap">
-                <div class="layui-input-prefix">
-                  <i class="layui-icon layui-icon-username"></i>
-                </div>
-                <input type="text" name="username" v-model.trim="username" v-bind="usernameAttrs" lay-verify="required"
-                  placeholder="用户名" lay-reqtext="请填写用户名" autocomplete="off" class="layui-input" lay-affix="clear">
-                <p class="text-xs text-red-600" v-if="errors.username">{{ errors.username.message }}</p>
-
-              </div>
-            </div>
-            <div class="layui-form-item">
-              <div class="layui-input-wrap">
-                <div class="layui-input-prefix">
-                  <i class="layui-icon layui-icon-password"></i>
-                </div>
-                <input type="password" name="password" v-model="password" v-bind="passwordAttrs" lay-verify="required"
-                  placeholder="密   码" lay-reqtext="请填写密码" autocomplete="off" class="layui-input" lay-affix="eye">
-                <p class="text-xs text-red-600" v-if="errors.password">{{ errors.password.message }}</p>
-              </div>
-            </div>
-            <div class="layui-form-item">
-              <div class="layui-row">
-                <div class="layui-col-xs7">
-                  <div class="layui-input-wrap">
-                    <div class="layui-input-prefix">
-                      <i class="layui-icon layui-icon-vercode"></i>
+  <div class="mt-5 layui-container fly-marginTop">
+    <div class="fly-panel fly-panel-user" pad20>
+      <div class="layui-tab layui-tab-brief" lay-filter="user">
+        <ul class="layui-tab-title">
+          <li class="layui-this">登入</li>
+          <li>
+            <router-link :to="{ name: 'register' }">注册</router-link>
+          </li>
+        </ul>
+        <div
+          class="layui-form layui-tab-content"
+          id="LAY_ucm"
+          style="padding: 20px 0"
+        >
+            <div class="layui-tab-item layui-show">
+              <div class="layui-form layui-form-pane">
+                <form method="post">
+                  <div class="layui-form-item">
+                    <label for="L_email" class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                      <input
+                        type="text"
+                        name="username"
+                        v-model="username"
+                        placeholder="请输入用户名"
+                        autocomplete="off"
+                        class="layui-input"
+                      />
                     </div>
-                    <input type="text" name="captcha" v-model="code" v-bind="codeAttrs" lay-verify="required"
-                      placeholder="验证码" lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
-                    <p class="text-xs text-red-600" v-if="errors.code">{{ errors.code.message }}</p>
+                    <div class="layui-form-mid">
+                      <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    </div>
                   </div>
-                </div>
-                <div class="layui-col-xs5">
-                  <div style="margin-left: 10px;">
-                    <div v-html="captcha" @click="getCaptcha" class="cursor-pointer"></div>
+                  <div class="layui-form-item">
+                    <label for="L_pass" class="layui-form-label">密码</label>
+                    <div class="layui-input-inline">
+                      <input
+                        type="password"
+                        name="password"
+                        v-model="password"
+                        placeholder="请输入密码"
+                        autocomplete="off"
+                        class="layui-input"
+                      />
+                    </div>
+                    <div class="layui-form-mid">
+                      <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    </div>
                   </div>
-                </div>
+                  <div class="layui-form-item">
+                    <div class="layui-row">
+                      <label for="L_vercode" class="layui-form-label"
+                        >验证码</label
+                      >
+                      <div class="layui-input-inline">
+                        <input
+                          type="text"
+                          name="code"
+                          v-model="code"
+                          placeholder="请输入验证码"
+                          autocomplete="off"
+                          class="layui-input"
+                        />
+                      </div>
+                      <div class>
+                        <span
+                          class="svg"
+                          style="color: #c00"
+                          @click="_getCode()"
+                          v-html="svg"
+                        ></span>
+                      </div>
+                    </div>
+                    <div class="layui-form-mid">
+                      <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <button
+                      class="layui-btn"
+                      type="button"
+                      @click="validate().then(submit)"
+                    >
+                      立即登录
+                    </button>
+                    <span style="padding-left: 20px">
+                      <router-link :to="{ name: 'forget' }"
+                        >忘记密码？</router-link
+                      >
+                    </span>
+                  </div>
+                  <div class="layui-form-item fly-form-app">
+                    <span>或者使用社交账号登入</span>
+                    <a
+                      href
+                      onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})"
+                      class="iconfont icon-qq"
+                      title="QQ登入"
+                    ></a>
+                    <a
+                      href
+                      onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})"
+                      class="iconfont icon-weibo"
+                      title="微博登入"
+                    ></a>
+                  </div>
+                </form>
               </div>
             </div>
-            <div class="layui-form-item">
-              <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-              <a href="#forget" style="float: right; margin-top: 7px;">忘记密码？</a>
-            </div>
-            <div class="layui-form-item">
-              <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-login"
-                @click="handleLogin">登录</button>
-            </div>
-            <div class="layui-form-item demo-login-other">
-              <label>社交账号登录</label>
-              <span style="padding: 0 21px 0 6px;">
-                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq" style="color: #3492ed;"></i></a>
-                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat" style="color: #4daf29;"></i></a>
-                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo" style="color: #cf1900;"></i></a>
-              </span>
-              或 <a href="#register">注册帐号</a>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -81,17 +123,27 @@ const captcha = ref('')
 
 const { defineField, errors, handleSubmit, validate } = useForm({
   validationSchema: {
-    username: yup.string().required({ message: '请输入用户名' }).email({ message: '请输入正确的邮箱' }),
-    password: yup.string().required({ message: '请输入密码' }).min(6, { message: '密码不能少于6位' }),
-    code: yup.string().required({ message: '请输入验证码' }).min(4, { message: '验证码只支持4位' }).max(4, { message: '验证码只支持4位' })
-  },
+    username: yup
+      .string()
+      .required({ message: '请输入用户名' })
+      .email({ message: '请输入正确的邮箱' }),
+    password: yup
+      .string()
+      .required({ message: '请输入密码' })
+      .min(6, { message: '密码不能少于6位' }),
+    code: yup
+      .string()
+      .required({ message: '请输入验证码' })
+      .min(4, { message: '验证码只支持4位' })
+      .max(4, { message: '验证码只支持4位' })
+  }
 })
 
-const [username, usernameAttrs] = defineField('username', { validateOnModelUpdate: true })
+const [username, usernameAttrs] = defineField('username', {
+  validateOnModelUpdate: true
+})
 const [password, passwordAttrs] = defineField('password')
 const [code, codeAttrs] = defineField('code')
-
-
 
 // 登录
 const handleLogin = async (e) => {
@@ -101,12 +153,11 @@ const handleLogin = async (e) => {
   const params = {
     username: username.value,
     password: password.value,
-    code: code.value,
+    code: code.value
   }
 
   console.log(params)
 }
-
 
 const getCaptcha = async () => {
   const res = await request.get('/captcha')
@@ -116,7 +167,6 @@ const getCaptcha = async () => {
 onMounted(() => {
   getCaptcha()
 })
-
 </script>
 
 <style lang="scss" scoped>
