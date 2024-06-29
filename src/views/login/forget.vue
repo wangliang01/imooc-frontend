@@ -26,13 +26,16 @@
                       type="text"
                       name="username"
                       v-model="username"
+                      v-bind="usernameAttrs"
                       placeholder="请输入用户名"
                       autocomplete="off"
                       class="layui-input"
                     />
                   </div>
                   <div class="layui-form-mid">
-                    <!-- <span style="color: #c00;">{{errors[0]}}</span> -->
+                    <span v-if="errors.username" class="text-red-600">{{
+                      errors.username.message
+                    }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
@@ -45,6 +48,7 @@
                         type="text"
                         name="code"
                         v-model="code"
+                        v-bind="codeAttrs"
                         placeholder="请输入验证码"
                         autocomplete="off"
                         class="layui-input"
@@ -53,14 +57,15 @@
                     <div class>
                       <span
                         class="svg"
-                        style="color: #c00"
-                        @click="_getCode()"
-                        v-html="svg"
+                        @click="getCaptcha"
+                        v-html="captcha"
                       ></span>
                     </div>
                   </div>
                   <div class="layui-form-mid">
-                    <!-- <span style="color: #c00;">{{errors[0]}}</span> -->
+                    <span v-if="errors.code" class="text-red-600">{{
+                      errors.code.message
+                    }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
@@ -68,7 +73,7 @@
                     type="button"
                     class="layui-btn"
                     alert="1"
-                    @click="submit()"
+                    @click="handleSubmit"
                   >
                     提交
                   </button>
@@ -82,6 +87,50 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+import { getCode } from '@/api/login'
+
+const captcha = ref('')
+
+const { defineField, errors, validate } = useForm({
+  validationSchema: {
+    username: yup
+      .string()
+      .required({ message: '请输入用户名' })
+      .email({ message: '请输入正确的邮箱' }),
+    code: yup
+      .string()
+      .required({ message: '请输入验证码' })
+      .min(4, { message: '验证码只支持4位' })
+      .max(4, { message: '验证码只支持4位' })
+  }
+})
+
+const [username, usernameAttrs] = defineField('username', {
+  validateOnModelUpdate: true
+})
+
+const [code, codeAttrs] = defineField('code', {
+  validateOnModelUpdate: true
+})
+
+const getCaptcha = async () => {
+  const res = await getCode()
+  captcha.value = res
+}
+
+const handleSubmit = async () => {
+  const valid = await validate()
+  if (!valid) return false
+  console.log('submit')
+}
+
+onMounted(() => {
+  getCaptcha()
+})
+</script>
 
 <style lang="scss" scoped></style>

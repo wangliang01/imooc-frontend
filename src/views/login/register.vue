@@ -24,6 +24,7 @@
                         type="text"
                         name="username"
                         v-model="username"
+                        v-bind="usernameAttrs"
                         placeholder="请输入用户名"
                         autocomplete="off"
                         class="layui-input"
@@ -34,23 +35,28 @@
                     </div>
                   </div>
                   <div class="layui-row">
-                    <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    <span v-if="errors.username" class="text-red-600">{{
+                      errors.username.message
+                    }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
-                  <label for="L_username" class="layui-form-label">昵称</label>
+                  <label for="nickname" class="layui-form-label">昵称</label>
                   <div class="layui-input-inline">
                     <input
                       type="text"
-                      name="name"
-                      v-model="name"
+                      name="nickname"
+                      v-model="nickname"
+                      v-bind="nicknameAttrs"
                       placeholder="请输入昵称"
                       autocomplete="off"
                       class="layui-input"
                     />
                   </div>
                   <div class="layui-form-mid">
-                    <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    <span v-if="errors.nickname" class="text-red-600">{{
+                      errors.nickname.message
+                    }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
@@ -61,6 +67,7 @@
                         type="password"
                         name="password"
                         v-model="password"
+                        v-bind="passwordAttrs"
                         placeholder="请输入密码"
                         autocomplete="off"
                         class="layui-input"
@@ -69,19 +76,22 @@
                     <div class="layui-form-mid layui-word-aux">6到16个字符</div>
                   </div>
                   <div class="layui-row">
-                    <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    <span v-if="errors.password" class="text-red-600">{{
+                      errors.password.message
+                    }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
                   <div class="layui-row">
-                    <label for="L_repass" class="layui-form-label"
+                    <label for="confirmPassword" class="layui-form-label"
                       >确认密码</label
                     >
                     <div class="layui-input-inline">
                       <input
                         type="password"
-                        name="repassword"
-                        v-model="repassword"
+                        name="confirmPassword"
+                        v-model="confirmPassword"
+                        v-bind="confirmPasswordAttrs"
                         placeholder="请输入密码"
                         autocomplete="off"
                         class="layui-input"
@@ -89,7 +99,9 @@
                     </div>
                   </div>
                   <div class="layui-row">
-                    <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    <span v-if="errors.confirmPassword">{{
+                      errors.confirmPassword.message
+                    }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
@@ -102,17 +114,20 @@
                         type="text"
                         name="code"
                         v-model="code"
+                        v-bind="codeAttrs"
                         placeholder="请输入验证码"
                         autocomplete="off"
                         class="layui-input"
                       />
                     </div>
                     <div class>
-                      <span class="svg" style="color: #c00" v-html="svg"></span>
+                      <span class="svg" v-html="captcha"></span>
                     </div>
                   </div>
                   <div class="layui-form-mid">
-                    <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    <span v-if="errors.code" class="text-red-600">{{
+                      errors.code.message
+                    }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
@@ -143,11 +158,53 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const username = ref('')
-const password = ref('')
-const repassword = ref('')
-const name = ref('')
-const code = ref('')
-const svg = ref('')
+import { ref, onMounted } from 'vue'
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
+import { getCode } from '@/api/login'
+const captcha = ref('')
+
+const { defineField, errors, validate } = useForm({
+  validationSchema: {
+    username: yup
+      .string()
+      .required({ message: '请输入用户名' })
+      .email({ message: '请输入正确的邮箱' }),
+    nickname: yup
+      .string()
+      .optional()
+      .min(2, { message: '昵称不能少于2位' })
+      .max(10, { message: '昵称不能超过10位' }),
+    password: yup
+      .string()
+      .required({ message: '请输入密码' })
+      .min(6, { message: '密码不能少于6位' })
+      .max(16, { message: '密码不能超过16位' }),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], '两次密码不一致'),
+    code: yup
+      .string()
+      .required({ message: '请输入验证码' })
+      .min(4, { message: '验证码只支持4位' })
+      .max(4, { message: '验证码只支持4位' })
+  }
+})
+
+const [username, usernameAttrs] = defineField('username', {
+  validateOnModelUpdate: true
+})
+const [nickname, nicknameAttrs] = defineField('nickname')
+const [password, passwordAttrs] = defineField('password')
+const [confirmPassword, confirmPasswordAttrs] = defineField('confirmPassword')
+const [code, codeAttrs] = defineField('code')
+
+const getCaptcha = async () => {
+  const res = await getCode()
+  captcha.value = res
+}
+
+onMounted(() => {
+  getCaptcha()
+})
 </script>

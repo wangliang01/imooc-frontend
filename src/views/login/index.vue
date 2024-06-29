@@ -120,12 +120,12 @@
 
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
-import request from '@/utils/request'
+import { getCode } from '@/api/login'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 const captcha = ref('')
 
-const { defineField, errors, handleSubmit, validate } = useForm({
+const { defineField, errors, validate } = useForm({
   validationSchema: {
     username: yup
       .string()
@@ -134,7 +134,8 @@ const { defineField, errors, handleSubmit, validate } = useForm({
     password: yup
       .string()
       .required({ message: '请输入密码' })
-      .min(6, { message: '密码不能少于6位' }),
+      .min(6, { message: '密码不能少于6位' })
+      .max(16, { message: '密码不能超过16位' }),
     code: yup
       .string()
       .required({ message: '请输入验证码' })
@@ -164,7 +165,7 @@ const handleLogin = async (e) => {
 }
 
 const getCaptcha = async () => {
-  const res = await request.get('/captcha')
+  const res = await getCode()
   captcha.value = res
 }
 
