@@ -13,101 +13,105 @@
           id="LAY_ucm"
           style="padding: 20px 0"
         >
-            <div class="layui-tab-item layui-show">
-              <div class="layui-form layui-form-pane">
-                <form method="post">
-                  <div class="layui-form-item">
-                    <label for="L_email" class="layui-form-label">用户名</label>
+          <div class="layui-tab-item layui-show">
+            <div class="layui-form layui-form-pane">
+              <form method="post">
+                <div class="layui-form-item">
+                  <label for="L_email" class="layui-form-label">用户名</label>
+                  <div class="layui-input-inline">
+                    <input
+                      type="text"
+                      name="username"
+                      v-model="username"
+                      v-bind="usernameAttrs"
+                      placeholder="请输入用户名"
+                      autocomplete="off"
+                      class="layui-input"
+                    />
+                  </div>
+                  <div class="layui-form-mid">
+                    <span v-if="errors.username" class="text-red-600">{{
+                      errors.username.message
+                    }}</span>
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <label for="L_pass" class="layui-form-label">密码</label>
+                  <div class="layui-input-inline">
+                    <input
+                      type="password"
+                      name="password"
+                      v-model="password"
+                      v-bind="passwordAttrs"
+                      placeholder="请输入密码"
+                      autocomplete="off"
+                      class="layui-input"
+                    />
+                  </div>
+                  <div class="layui-form-mid">
+                    <span v-if="errors.password" class="text-red-600">{{
+                      errors.password.message
+                    }}</span>
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <div class="layui-row">
+                    <label for="L_vercode" class="layui-form-label"
+                      >验证码</label
+                    >
                     <div class="layui-input-inline">
                       <input
                         type="text"
-                        name="username"
-                        v-model="username"
-                        placeholder="请输入用户名"
+                        name="code"
+                        v-model="code"
+                        v-bind="codeAttrs"
+                        placeholder="请输入验证码"
                         autocomplete="off"
                         class="layui-input"
                       />
                     </div>
-                    <div class="layui-form-mid">
-                      <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
+                    <div class>
+                      <span
+                        class="svg"
+                        @click="getCaptcha"
+                        v-html="captcha"
+                      ></span>
                     </div>
                   </div>
-                  <div class="layui-form-item">
-                    <label for="L_pass" class="layui-form-label">密码</label>
-                    <div class="layui-input-inline">
-                      <input
-                        type="password"
-                        name="password"
-                        v-model="password"
-                        placeholder="请输入密码"
-                        autocomplete="off"
-                        class="layui-input"
-                      />
-                    </div>
-                    <div class="layui-form-mid">
-                      <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
-                    </div>
+                  <div class="layui-form-mid">
+                    <span v-if="errors.code" class="text-red-600">{{
+                      errors.code.message
+                    }}</span>
                   </div>
-                  <div class="layui-form-item">
-                    <div class="layui-row">
-                      <label for="L_vercode" class="layui-form-label"
-                        >验证码</label
-                      >
-                      <div class="layui-input-inline">
-                        <input
-                          type="text"
-                          name="code"
-                          v-model="code"
-                          placeholder="请输入验证码"
-                          autocomplete="off"
-                          class="layui-input"
-                        />
-                      </div>
-                      <div class>
-                        <span
-                          class="svg"
-                          style="color: #c00"
-                          @click="_getCode()"
-                          v-html="svg"
-                        ></span>
-                      </div>
-                    </div>
-                    <div class="layui-form-mid">
-                      <!-- <span style="color: #c00">{{ errors[0] }}</span> -->
-                    </div>
-                  </div>
-                  <div class="layui-form-item">
-                    <button
-                      class="layui-btn"
-                      type="button"
-                      @click="validate().then(submit)"
+                </div>
+                <div class="layui-form-item">
+                  <button class="layui-btn" type="button" @click="handleLogin">
+                    立即登录
+                  </button>
+                  <span style="padding-left: 20px">
+                    <router-link :to="{ name: 'forget' }"
+                      >忘记密码？</router-link
                     >
-                      立即登录
-                    </button>
-                    <span style="padding-left: 20px">
-                      <router-link :to="{ name: 'forget' }"
-                        >忘记密码？</router-link
-                      >
-                    </span>
-                  </div>
-                  <div class="layui-form-item fly-form-app">
-                    <span>或者使用社交账号登入</span>
-                    <a
-                      href
-                      onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})"
-                      class="iconfont icon-qq"
-                      title="QQ登入"
-                    ></a>
-                    <a
-                      href
-                      onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})"
-                      class="iconfont icon-weibo"
-                      title="微博登入"
-                    ></a>
-                  </div>
-                </form>
-              </div>
+                  </span>
+                </div>
+                <div class="layui-form-item fly-form-app">
+                  <span>或者使用社交账号登入</span>
+                  <a
+                    href
+                    onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})"
+                    class="iconfont icon-qq"
+                    title="QQ登入"
+                  ></a>
+                  <a
+                    href
+                    onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})"
+                    class="iconfont icon-weibo"
+                    title="微博登入"
+                  ></a>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -169,17 +173,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
-.demo-login-container {
-  width: 320px;
-  margin: 21px auto 0;
-}
-
-.demo-login-other .layui-icon {
-  position: relative;
-  display: inline-block;
-  margin: 0 2px;
-  top: 2px;
-  font-size: 26px;
-}
-</style>
+<style lang="scss" scoped></style>
