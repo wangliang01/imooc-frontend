@@ -11,7 +11,7 @@ import request from '@/utils/request'
  */
 export function getCode(sid) {
   // 向服务器发送GET请求，请求路径为'/captcha'，并传递sid作为查询参数
-  return request.get('/captcha', {  sid })
+  return request.get('/public/captcha', {  sid })
 }
 
 /**
