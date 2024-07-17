@@ -123,6 +123,8 @@ import { onMounted, ref, reactive } from 'vue'
 import { getCode } from '@/api/login'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
+import {v4 as uuid} from 'uuid'
+import local from '../../utils/local'
 const captcha = ref('')
 
 const { defineField, errors, validate } = useForm({
@@ -150,6 +152,9 @@ const [username, usernameAttrs] = defineField('username', {
 const [password, passwordAttrs] = defineField('password')
 const [code, codeAttrs] = defineField('code')
 
+// 自定义的sessionId,通过uuid生成
+const sid = ref('')
+
 // 登录
 const handleLogin = async (e) => {
   e.preventDefault()
@@ -170,6 +175,14 @@ const getCaptcha = async () => {
 }
 
 onMounted(() => {
+  if (local.get('sid')) {
+    sid.value = local.get('sid')
+  } else {
+    sid.value = uuid()
+    local.set('sid', sid.value)
+  }
+
+  console.log('sid', sid.value)
   getCaptcha()
 })
 </script>
