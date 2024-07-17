@@ -120,11 +120,11 @@
 
 <script setup>
 import { onMounted, ref, reactive } from 'vue'
-import { getCode } from '@/api/login'
+import { getCode, login } from '@/api/login'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import {v4 as uuid} from 'uuid'
-import local from '../../utils/local'
+import { useGlobalStore } from '../../store/global'
 const captcha = ref('')
 
 const { defineField, errors, validate } = useForm({
@@ -152,8 +152,7 @@ const [username, usernameAttrs] = defineField('username', {
 const [password, passwordAttrs] = defineField('password')
 const [code, codeAttrs] = defineField('code')
 
-// 自定义的sessionId,通过uuid生成
-const sid = ref('')
+const store = useGlobalStore()
 
 // 登录
 const handleLogin = async (e) => {
@@ -163,26 +162,29 @@ const handleLogin = async (e) => {
   const params = {
     username: username.value,
     password: password.value,
-    code: code.value
+    code: code.value,
+    sid: store.sid
   }
 
   console.log(params)
+
+  const res = await login(params)
+
+  console.log("res", res)
 }
 
+
 const getCaptcha = async () => {
-  const res = await getCode()
+  const sid = store.sid
+  const res = await getCode(sid)
   captcha.value = res
 }
 
 onMounted(() => {
-  if (local.get('sid')) {
-    sid.value = local.get('sid')
-  } else {
-    sid.value = uuid()
-    local.set('sid', sid.value)
+  if (!store.sid) {
+    store.setSid(uuid())
   }
 
-  console.log('sid', sid.value)
   getCaptcha()
 })
 </script>
