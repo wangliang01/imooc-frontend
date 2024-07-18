@@ -5,7 +5,10 @@ import App from './App.vue'
 import Layui from '@layui/layui-vue'
 // import '@layui/layui-vue/lib/index.css'
 import router from './router'
+import Alert from './components/Alert/index'
+
+
 
 const pinia = createPinia()
 
-createApp(App).use(Layui).use(router).use(pinia).mount('#app')
+createApp(App).use(Layui).use(router).use(pinia).use(Alert).mount('#app')
