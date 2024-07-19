@@ -27,3 +27,16 @@ export function login(data) {
   // 发送POST请求到/login路径进行用户登录
   return request.post('/login', data)
 }
+
+
+/**
+ * 用户注册接口
+ * 
+ * @param {Object} data - 用户注册的数据对象，包含用户名、密码、邮箱等注册信息。
+ * @returns {Promise} - 返回一个Promise对象，用于处理服务器响应，包括注册成功或失败的情况。
+ */
+
+export function register(data) {
+  // 发送POST请求到/register路径进行用户注册
+  return request.post('/register', data)
+}

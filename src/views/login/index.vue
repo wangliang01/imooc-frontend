@@ -171,7 +171,6 @@ const handleLogin = async (e) => {
 
   const res = await login(params)
 
-  console.log('res', res)
   alert('登录成功')
 }
 

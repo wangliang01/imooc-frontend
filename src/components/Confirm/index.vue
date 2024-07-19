@@ -24,11 +24,11 @@ const props = defineProps({
   },
   cancel: {
     type: Function,
-    default: () => {console.log('cancel')}
+    default: () => { }
   },
   success: {
     type: Function,
-    default: () => {console.log('success')}
+    default: () => { }
   }
 })
 const isShow = ref(true)
@@ -114,6 +114,7 @@ $dark: darken($primary, 5%);
       align-items: center;
       gap: 19px;
     }
+
     .btn {
       margin-top: 20px;
       text-align: center;
@@ -123,12 +124,15 @@ $dark: darken($primary, 5%);
       border-radius: 2px;
       color: #fff;
       cursor: pointer;
+
       &.cancel {
         background: #ededed;
         color: #333;
       }
+
       &.confirm {
         background: $primary;
+
         &:hover {
           background: $dark;
         }
