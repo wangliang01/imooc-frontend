@@ -7,6 +7,7 @@ import Layui from '@layui/layui-vue'
 import router from './router'
 import Alert from './components/Alert/index'
 import Confirm from './components/Confirm/index'
+console.log("测试pipeline")
 
 const pinia = createPinia()
 
