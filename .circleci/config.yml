@@ -79,7 +79,7 @@ workflows:
               only: main
           # 设置环境变量，用于自定义部署命令
           environment:
-            DEPLOY_COMMAND: yarn build && yarn gh-pages:deploy
+            DEPLOY_COMMAND: npm build && npm gh-pages:deploy
 
 # 定义deploy-vue job的详细步骤
 jobs:
@@ -100,7 +100,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            yarn install
+            npm install
       # 保存依赖到缓存，供下次构建使用
       - save_cache:
           paths:
@@ -110,5 +110,5 @@ jobs:
       - run:
           name: Build and Deploy
           command: |
-            yarn build
-            yarn gh-pages:deploy
+            npm build
+            npm gh-pages:deploy
