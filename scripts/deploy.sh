@@ -40,7 +40,7 @@ else
 fi
 
 # 把构建好的文件复制到gh-pages分支
-cp -a '../${outputDir}/.' .
+cp -a "../${outputDir}/." .
 
 ls -la
 
@@ -56,4 +56,3 @@ git push --force --quiet origin gh-pages
 # 资源回收，删除临时分支与目录
 cd ..
 rm -rf gh-pages-branch
-echo 'deploy to github pages success'
