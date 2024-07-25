@@ -1,50 +1,46 @@
-# 指定CircleCI配置文件的版本
 version: 2
 
-# 定义构建任务
 jobs:
   build:
-    # 使用指定的Docker镜像
     docker:
       - image: circleci/node:16
-    # 构建任务的步骤列表
     steps:
-      # 检出代码
       - checkout
-      # 从缓存中恢复依赖，提高构建速度
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      # 安装项目依赖
       - run:
           name: Install dependencies
           command: npm install
-      # 保存依赖到缓存，供下次构建使用
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      # 构建应用程序
       - run:
           name: Build application
           command: npm run build
 
-# 定义工作流
+  deploy:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Deploy application
+          command: |
+            gh-pages -d public
 workflows:
   version: 2
-  # 定义构建和部署的工作流
   build-and-deploy:
-    # 工作流包含的任务列表
     jobs:
-      # 构建任务
       - build
-      # 部署任务
       - deploy:
-          # 需要在构建任务完成后才开始
           requires:
             - build
-          # 只在main分支上执行部署
           filters:
             branches:
               only: main
