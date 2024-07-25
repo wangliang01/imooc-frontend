@@ -1,0 +1,114 @@
+# 指定CircleCI配置文件的版本
+version: 2.1
+
+# 引入CircleCI的Node.js Orb，用于简化Node.js环境相关任务
+orbs:
+  node: circleci/node@4.1
+
+# 定义工作流，版本2提供了更多高级功能
+workflows:
+  version: 2
+  # 定义名为build-and-test的工作流，包含一系列的job
+  build-and-test:
+    jobs:
+      # 安装项目依赖的npm包
+      - node/install-packages:
+          # 设置job名称
+          name: install-packages
+          # 指定Node.js版本
+          node-version: 16
+          # 只在main分支上执行
+          filters:
+            branches:
+              only: main
+
+      # 运行项目测试
+      - node/run-tests:
+          # 设置job名称
+          name: run-tests
+          # 使用相同的Node.js版本
+          node-version: 16
+          # 依赖于install-packages job完成
+          requires:
+            - install-packages
+          # 只在main分支上执行
+          filters:
+            branches:
+              only: main
+
+      # 开始生成代码覆盖率报告
+      - node/start-coverage-report:
+          # 设置job名称
+          name: start-coverage-report
+          # 使用相同的Node.js版本
+          node-version: 16
+          # 依赖于run-tests job完成
+          requires:
+            - run-tests
+          # 只在main分支上执行
+          filters:
+            branches:
+              only: main
+
+      # 结束生成代码覆盖率报告
+      - node/stop-coverage-report:
+          # 设置job名称
+          name: stop-coverage-report
+          # 使用相同的Node.js版本
+          node-version: 16
+          # 依赖于start-coverage-report job完成
+          requires:
+            - start-coverage-report
+          # 只在main分支上执行
+          filters:
+            branches:
+              only: main
+
+      # 部署Vue应用
+      - node/deploy-vue:
+          # 设置job名称
+          name: deploy-vue
+          # 使用相同的Node.js版本
+          node-version: 16
+          # 依赖于stop-coverage-report job完成
+          requires:
+            - stop-coverage-report
+          # 只在main分支上执行
+          filters:
+            branches:
+              only: main
+          # 设置环境变量，用于自定义部署命令
+          environment:
+            DEPLOY_COMMAND: yarn build && yarn gh-pages:deploy
+
+# 定义deploy-vue job的详细步骤
+jobs:
+  deploy:
+    # 使用指定的Docker镜像
+    docker:
+      - image: circleci/node:16
+    # 步骤列表
+    steps:
+      # 检出代码
+      - checkout
+      # 从缓存中恢复依赖，提高构建速度
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      # 安装项目依赖
+      - run:
+          name: Install dependencies
+          command: |
+            yarn install
+      # 保存依赖到缓存，供下次构建使用
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      # 构建并部署Vue应用
+      - run:
+          name: Build and Deploy
+          command: |
+            yarn build
+            yarn gh-pages:deploy
