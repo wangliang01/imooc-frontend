@@ -1,13 +1,13 @@
 # 指定CircleCI配置文件的版本
 version: 2
 
-# 定义deploy-vue job的详细步骤
+# 定义构建任务
 jobs:
-  deploy:
+  build:
     # 使用指定的Docker镜像
     docker:
       - image: circleci/node:16
-    # 步骤列表
+    # 构建任务的步骤列表
     steps:
       # 检出代码
       - checkout
@@ -19,16 +19,32 @@ jobs:
       # 安装项目依赖
       - run:
           name: Install dependencies
-          command: |
-            npm install
+          command: npm install
       # 保存依赖到缓存，供下次构建使用
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      # 构建并部署Vue应用
+      # 构建应用程序
       - run:
-          name: Build and Deploy
-          command: |
-            npm build
-            npm gh-pages:deploy
+          name: Build application
+          command: npm run build
+
+# 定义工作流
+workflows:
+  version: 2
+  # 定义构建和部署的工作流
+  build-and-deploy:
+    # 工作流包含的任务列表
+    jobs:
+      # 构建任务
+      - build
+      # 部署任务
+      - deploy:
+          # 需要在构建任务完成后才开始
+          requires:
+            - build
+          # 只在main分支上执行部署
+          filters:
+            branches:
+              only: main
