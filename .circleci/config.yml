@@ -1,33 +1,43 @@
+# CircleCI配置文件，版本2.0
 version: 2
 
+# 定义一个名为build的工作流
 jobs:
   build:
+    # 在Docker容器中运行构建，使用CircleCI预构建的Node.js 16镜像
     docker:
       - image: circleci/node:16
     steps:
+      # 检出代码
       - checkout
+      # 恢复缓存，以加速构建过程
       - restore_cache:
           keys:
+            # 根据package.json的校验和恢复依赖缓存
             - v1-dependencies-{{ checksum "package.json" }}
+            # 如果校验和无法匹配，尝试恢复最新的依赖缓存
             - v1-dependencies-
+      # 安装项目依赖
       - run:
           name: Install
           command: npm install
+      # 保存依赖缓存
       - save_cache:
           paths:
+            # 保存node_modules目录
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      # 执行构建命令
       - run:
           name: Build
           command: npm run build
-
+      # 给部署脚本添加执行权限
       - run: 
           name: Prepare shell commands
           # shell chmod +x 赋于执行权限
           # 执行shell脚本
           command: chmod +x ./scripts/deploy.sh
-
+      # 执行部署脚本，将构建结果部署到Github Pages
       - run:
           name: Deploy to Github Pages
           command: ./scripts/deploy.sh
-
