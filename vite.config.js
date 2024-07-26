@@ -6,6 +6,7 @@ import { LayuiVueResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: import.meta.env.MODE === "production" ? "/imooc-frontend/" : "/",
   resolve: {
     alias: {
       "@": "/src",
