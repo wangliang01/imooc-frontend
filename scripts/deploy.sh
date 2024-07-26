@@ -56,3 +56,5 @@ git push --force --quiet origin gh-pages
 # 资源回收，删除临时分支与目录
 cd ..
 rm -rf gh-pages-branch
+
+echo 'deploy to github pages success'
