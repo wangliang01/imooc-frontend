@@ -11,8 +11,10 @@ WORKDIR /app
 # 将当前目录内容复制到容器中
 COPY . .
 
-# 安装依赖并执行构建命令
-RUN npm install
+# 安装依赖并执行构建命令,
+# 用于检查npm依赖
+RUN npm install -g npm-check  
+RUN npm config set registry https://registry.npmmirror.com
 RUN npm run build
 
 # 声明生产阶段的镜像
