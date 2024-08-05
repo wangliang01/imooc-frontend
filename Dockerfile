@@ -1,6 +1,6 @@
 # 声明构建阶段的镜像
 # build stage
-FROM node:18 as build-stage
+FROM node:16 as build-stage
 
 # 设置维护者信息
 LABEL maintainer="1392830517@qq.com"
