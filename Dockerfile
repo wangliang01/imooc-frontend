@@ -15,6 +15,7 @@ COPY . .
 # 用于检查npm依赖
 # RUN npm install -g npm-check  
 RUN npm config set registry https://registry.npmmirror.com
+RUN npm install
 RUN npm run build
 
 # 声明生产阶段的镜像
