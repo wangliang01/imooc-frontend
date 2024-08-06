@@ -18,6 +18,20 @@ if docker ps -a | grep -q $CONTAINER_NAME; then
     docker rm $CONTAINER_NAME
 fi
 
+# 配置 Docker 镜像源
+echo "Setting up Docker registry mirrors..."
+
+cat <<EOF >/etc/docker/daemon.json
+{
+    "registry-mirrors": [
+        "https://docker.1panel.live/",
+        "https://dockerhub.icu",
+        "https://docker.hpcloud.cloud",
+        "https://hub.rat.dev"
+    ]
+}
+EOF
+
 # 通过 Dockerfile 构建镜像
 echo "Building the Docker image..."
 docker build --no-cache=$NO_CACHE -t $CONTAINER_NAME:latest .
