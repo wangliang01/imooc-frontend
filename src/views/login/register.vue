@@ -78,7 +78,7 @@
                         autocomplete="off" class="layui-input" />
                     </div>
                     <div class>
-                      <span class="svg" v-html="captcha"></span>
+                      <span class="svg cursor-pointer" v-html="captcha" @click="getCaptcha"></span>
                     </div>
                   </div>
                   <div class="layui-form-mid">

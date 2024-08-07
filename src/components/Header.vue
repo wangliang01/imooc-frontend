@@ -5,7 +5,7 @@
         <a class="w-[200px] h-[60px]" href="/">
           <img src="../assets/img/logo-2.png" alt="layui" class="w-[200px] h-[60px]" />
         </a>
-        <ul class="layui-nav fly-nav layui-hide-xs">
+        <ul class="layui-nav  layui-hide-xs ml-auto">
           <li class="layui-nav-item layui-this">
             <a href="/" class="flex items-center">
               <i class="iconfont icon-jiaoliu"></i>交流
@@ -27,17 +27,17 @@
           <li class="layui-nav-item">
             <router-link class="iconfont icon-touxiang layui-hide-xs" to="/user123123"></router-link>
           </li>
-          <li class="layui-nav-item">
+          <li class="layui-nav-item layui-hide-sm">
             <router-link :to="{ name: 'login' }">登入</router-link>
           </li>
-          <li class="layui-nav-item">
+          <li class="layui-nav-item layui-hide-sm" >
             <router-link :to="{ name: 'register' }">注册</router-link>
           </li>
-          <li class="layui-nav-item layui-hide-xs">
+          <li class="layui-nav-item layui-hide-sm">
             <a href onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入"
               class="iconfont icon-qq"></a>
           </li>
-          <li class="layui-nav-item layui-hide-xs">
+          <li class="layui-nav-item layui-hide-sm">
             <a href onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入"
               class="iconfont icon-weibo"></a>
           </li>
