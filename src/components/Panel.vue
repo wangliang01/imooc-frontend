@@ -1,9 +1,9 @@
 <template>
   <div class="fly-panel fly-column">
-    <div class="layui-container">
-      <ul class="layui-clear">
+     <div class="layui-container">
+      <ul class="layui-clear flex gap-2">
         <router-link tag="li" to="/" class="layui-hide-xs">
-          <a href="/">首页</a>
+          <a href="/" class="px-4 h-100%">首页</a>
         </router-link>
         <router-link v-for="(item, index) in lists" :key="'panel' + index" tag="li" :to="item.path">
           <a href="jie/index.html">
@@ -15,7 +15,6 @@
           <span class="fly-mid"></span>
         </li>
 
-        <!-- 用户登入后显示 -->
         <template v-if="isLogin">
           <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
             <router-link :to="{ name: 'mypost' }">我发表的贴</router-link>
@@ -30,11 +29,11 @@
         <span class="fly-search">
           <i class="layui-icon"></i>
         </span>
-        <router-link :to="{ 'name': 'add' }" class="layui-btn">发表新帖</router-link>
+        <router-link  class="layui-btn">发表新帖</router-link>
       </div>
       <div class="layui-hide-sm layui-show-xs-block"
         style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-        <router-link :to="{ 'name': 'add' }" class="layui-btn">发表新帖</router-link>
+        <router-link  class="layui-btn">发表新帖</router-link>
       </div>
     </div>
   </div>
@@ -75,8 +74,10 @@ const lists = ref([
   }
 ])
 
-const isLogin = ref(false)
 
+
+const isLogin = ref(false)
+console.log("🚀 ~ list:", lists.value)
 </script>
 
 <style lang="scss" scoped></style>
