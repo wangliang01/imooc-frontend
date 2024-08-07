@@ -1,11 +1,17 @@
 <template>
   <div class="fly-panel fly-column">
-     <div class="layui-container">
-      <ul class="layui-clear flex">
-        <router-link tag="li" to="/" class="layui-hide-xs px-5">
+    <div class="layui-container">
+      <ul class="flex layui-clear">
+        <router-link tag="li" to="/" class="px-5 layui-hide-xs">
           <a href="/">首页</a>
         </router-link>
-        <router-link v-for="(item, index) in lists" :key="'panel' + index" tag="li" :to="item.path" class="px-5">
+        <router-link
+          v-for="(item, index) in lists"
+          :key="'panel' + index"
+          tag="li"
+          :to="item.path"
+          class="px-5"
+        >
           <a href="jie/index.html">
             {{ item.name }}
             <span class="layui-badge-dot" v-if="item.isNew"></span>
@@ -25,15 +31,17 @@
         </template>
       </ul>
 
-      <div class="fly-column-right layui-hide-xs px-5">
+      <div class="px-5 fly-column-right layui-hide-xs">
         <span class="fly-search">
           <i class="layui-icon"></i>
         </span>
-        <router-link  class="layui-btn">发表新帖</router-link>
+        <router-link class="layui-btn">发表新帖</router-link>
       </div>
-      <div class="layui-hide-sm layui-show-xs-block"
-        style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-        <router-link  class="layui-btn">发表新帖</router-link>
+      <div
+        class="layui-hide-sm layui-show-xs-block"
+        style="margin-top: -10px; padding-bottom: 10px; text-align: center"
+      >
+        <router-link to="/index/post" class="layui-btn">发表新帖</router-link>
       </div>
     </div>
   </div>
@@ -74,10 +82,8 @@ const lists = ref([
   }
 ])
 
-
-
 const isLogin = ref(false)
-console.log("🚀 ~ list:", lists.value)
+console.log('🚀 ~ list:', lists.value)
 </script>
 
 <style lang="scss" scoped></style>
