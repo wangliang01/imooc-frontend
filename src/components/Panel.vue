@@ -1,11 +1,11 @@
 <template>
   <div class="fly-panel fly-column">
      <div class="layui-container">
-      <ul class="layui-clear flex gap-2">
-        <router-link tag="li" to="/" class="layui-hide-xs">
-          <a href="/" class="px-4 h-100%">首页</a>
+      <ul class="layui-clear flex">
+        <router-link tag="li" to="/" class="layui-hide-xs px-5">
+          <a href="/">首页</a>
         </router-link>
-        <router-link v-for="(item, index) in lists" :key="'panel' + index" tag="li" :to="item.path">
+        <router-link v-for="(item, index) in lists" :key="'panel' + index" tag="li" :to="item.path" class="px-5">
           <a href="jie/index.html">
             {{ item.name }}
             <span class="layui-badge-dot" v-if="item.isNew"></span>
@@ -25,7 +25,7 @@
         </template>
       </ul>
 
-      <div class="fly-column-right layui-hide-xs">
+      <div class="fly-column-right layui-hide-xs px-5">
         <span class="fly-search">
           <i class="layui-icon"></i>
         </span>
