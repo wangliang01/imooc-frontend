@@ -13,7 +13,7 @@ import VFooter from '@/components/Footer.vue'
 </template>
 
 <style>
-@import url('./assets/css/layer.css');
+@import url('./assets/css/layui/css/layui.css');
 @import url('./assets/css/full.css');
 @import url('./assets/css/global.css');
 </style>
