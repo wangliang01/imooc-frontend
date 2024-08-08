@@ -36,7 +36,7 @@
     </ul>
     <div v-if="isShow" style="text-align: center">
       <div class="laypage-main" v-if="!isEnd">
-        <a @click.prevent="handleLoadMore" class="laypage-next">更多求解</a>
+        <a @click.prevent="handleLoadMore" class="laypage-next cursor-pointer">更多求解</a>
       </div>
       <div class="nomore gray" v-else>没有更多了</div>
     </div>
