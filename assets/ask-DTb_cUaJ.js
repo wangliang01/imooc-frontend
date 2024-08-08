@@ -1,1 +1,0 @@
-import{_ as e,c as s,f as c,b as o,o as t}from"./index-fu0tlaKn.js";const a={},n={class:""},r=o("i",{class:"layui-icon layui-icon-face-smile",style:{"font-size":"30px",color:"#1e9fff"}},null,-1);function i(l,_){return t(),s("div",n,[c(" 你可以去定义它的颜色或者大小，如： "),r])}const d=e(a,[["render",i]]);export{d as default};
