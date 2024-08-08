@@ -1,30 +1,65 @@
 <template>
   <div class="fly-panel" style="margin-bottom: 0;">
     <div class="fly-panel-title fly-filter">
-      <a :class="{'layui-this': status ==='' && tag === ''}" @click.prevent="handleSearch()">综合</a>
+      <a :class="{ 'layui-this': status === '' && tag === '' }" class="cursor-pointer"
+        @click.prevent="handleSearch()">综合</a>
       <span class="fly-mid"></span>
-      <a :class="{'layui-this': status === '0'}" @click.prevent="handleSearch(0)">未结</a>
+      <a :class="{ 'layui-this': status === '0' }" class="cursor-pointer" @click.prevent="handleSearch(0)">未结</a>
       <span class="fly-mid"></span>
-      <a :class="{'layui-this': status === '1'}" @click.prevent="handleSearch(1)">已结</a>
+      <a :class="{ 'layui-this': status === '1' }" class="cursor-pointer" @click.prevent="handleSearch(1)">已结</a>
       <span class="fly-mid"></span>
-      <a :class="{'layui-this': status === '' && tag === '精华'}" @click.prevent="handleSearch(2)">精华</a>
+      <a :class="{ 'layui-this': status === '' && tag === '精华' }" class="cursor-pointer"
+        @click.prevent="handleSearch(2)">精华</a>
       <span class="fly-filter-right layui-hide-xs">
-        <a :class="{'layui-this': sort === 'created'}" @click.prevent="handleSearch(3)">按最新</a>
+        <a :class="{ 'layui-this': sort === 'created' }" class="cursor-pointer" @click.prevent="handleSearch(3)">按最新</a>
         <span class="fly-mid"></span>
-        <a :class="{'layui-this': sort === 'answer'}" @click.prevent="handleSearch(4)">按热议</a>
+        <a :class="{ 'layui-this': sort === 'answer' }" class="cursor-pointer" @click.prevent="handleSearch(4)">按热议</a>
       </span>
     </div>
-    <!-- <list-item :lists="lists" :isEnd="isEnd" @nextpage="nextPage()"></list-item> -->
+    <list-items :list="list" :isEnd="isEnd" @nextpage="handleNextPage()"></list-items>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import ListItems from './ListItems.vue';
+const list = ref([])
+const status = ref('') // 0-未结贴， 1-已结贴
+const tag = ref('') // 精华
+const sort = ref('created') // 按最新-created, 按热议-answer
+const isEnd = ref(false)
 
-const handleSearch = () => {
-  console.log('handleSearch')
+
+const handleSearch = (type) => {
+  switch (type) {
+    case 0:
+      status.value = '0'
+      tag.value = ''
+      break;
+    case 1:
+      status.value = '1'
+      tag.value = ''
+      break;
+    case 2:
+      status.value = ''
+      tag.value = '精华'
+      break;
+    case 3:
+      sort.value = 'created'
+      break;
+    case 4:
+      sort.value = 'answer'
+      break;
+    default: 
+      status.value = ''
+      tag.value = ''
+      break;
+  }
+}
+
+const handleNextPage = () => {
+  console.log('handleNextPage')
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -2,20 +2,19 @@
   <div class="fly-panel fly-column">
     <div class="layui-container">
       <ul class="flex layui-clear">
-        <router-link tag="li" to="/" class="px-5 layui-hide-xs">
-          <a href="/">首页</a>
+        <router-link v-slot="{  isExactActive }" to="/">
+          <li :class="{ 'layui-this': isExactActive }" class="px-5 layui-hide-xs">
+            <a>首页</a>
+          </li>
         </router-link>
-        <router-link
-          v-for="(item, index) in lists"
-          :key="'panel' + index"
-          tag="li"
-          :to="item.path"
-          class="px-5"
-        >
-          <a href="jie/index.html">
-            {{ item.name }}
-            <span class="layui-badge-dot" v-if="item.isNew"></span>
-          </a>
+        <router-link v-slot="{  isExactActive }" v-for="(item, index) in list" :key="'panel' + index"
+          :to="item.path">
+          <li :class="{ 'layui-this': isExactActive }" class="px-5">
+            <a>
+              {{ item.name }}
+              <span class="layui-badge-dot" v-if="item.isNew"></span>
+            </a>
+          </li>
         </router-link>
         <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
           <span class="fly-mid"></span>
@@ -37,10 +36,8 @@
         </span>
         <router-link class="layui-btn">发表新帖</router-link>
       </div>
-      <div
-        class="layui-hide-sm layui-show-xs-block"
-        style="margin-top: -10px; padding-bottom: 10px; text-align: center"
-      >
+      <div class="layui-hide-sm layui-show-xs-block"
+        style="margin-top: -10px; padding-bottom: 10px; text-align: center">
         <router-link to="/index/post" class="layui-btn">发表新帖</router-link>
       </div>
     </div>
@@ -49,7 +46,7 @@
 
 <script setup>
 import { ref } from 'vue'
-const lists = ref([
+const list = ref([
   {
     name: '提问',
     path: '/index/ask',
@@ -83,7 +80,6 @@ const lists = ref([
 ])
 
 const isLogin = ref(false)
-console.log('🚀 ~ list:', lists.value)
 </script>
 
 <style lang="scss" scoped></style>

@@ -9,11 +9,16 @@
         style="color: #FF5722;"
       >去签到</a>
     </div>
-    <!-- <list-item :lists="list" :isShow="false"></list-item> -->
+    <list-items :list="list" :isShow="false"></list-items>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import ListItems from './ListItems.vue';
+
+const list = ref([])
+
 
 </script>
 
