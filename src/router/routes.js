@@ -1,45 +1,21 @@
 const routes = [
+  
   {
     path: "/",
-    redirect: "/index/ask",
-  },
-  {
-    path: "/index",
     name: "home",
-    redirect: '/index/ask',
     component: () => import("@/views/home/index.vue"),
     children: [
       {
-        path: "ask",
-        name: "ask",
-        component: () => import("@/views/home/ask.vue"),
+        path: "",
+        name: "index",
+        component: () => import("@/views/home/layout/tpl1.vue"),
       },
       {
-        path: 'share',
-        name: 'share',
-        component: () => import('@/views/home/share.vue')
+        path: "/index/:category",
+        name: "category",
+        component: () => import("@/views/home/layout/tpl2.vue"),
       },
-      {
-        path: 'discuss',
-        name: 'discuss',
-        component: () => import('@/views/home/discuss.vue')
-      },
-      {
-        path: 'advise',
-        name: 'advise',
-        component: () => import('@/views/home/advise.vue')
-      },
-      {
-        path: 'notice',
-        name: 'notice',
-        component: () => import('@/views/home/notice.vue')
-      },
-      {
-        path: "logs",
-        name: "logs",
-        component: () => import("@/views/home/logs.vue")
-      }
-    ]
+    ],
   },
   {
     path: "/login",

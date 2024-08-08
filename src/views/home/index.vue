@@ -1,4 +1,3 @@
-
 <template>
   <div class="home">
     <imooc-panel></imooc-panel>
@@ -10,6 +9,4 @@
 import ImoocPanel from "@/components/Panel.vue"
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
