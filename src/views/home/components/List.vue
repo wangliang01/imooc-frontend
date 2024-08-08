@@ -26,10 +26,10 @@ import ListItems from './ListItems.vue';
 import { getList } from '@/api/content'
 const list = ref([])
 const status = ref('') // 0-未结贴， 1-已结贴
-const tag = ref('') // 精华
 const sort = ref('created') // 按最新-created, 按热议-answer
+const tag = ref('') // 精华
 const isEnd = ref(false)
-const type = ref(0) // 0-普通列表，1-置顶列表
+const type = ref('0') // 0-普通列表，1-置顶列表
 const page = ref(1) // 当前页码
 const size = ref(10) // 每页条数
 const category = ref('index') // 贴子分类， index-全部，ask-提问，advise-建议，discuss-交流，share-分享，news-动态
