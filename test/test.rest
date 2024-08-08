@@ -1,0 +1,19 @@
+### 
+https://apifoxmock.com/m1/4855938-4511428-default/api/public/list?type=0&page=1&size=10&category=index&sort=DESC&status=0
+
+### 
+curl 'https://apifoxmock.com/m1/4855938-4511428-default/api/public/list?type=0&page=1&size=10&category=index&status=&sort=created' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'accept-language: zh-CN,zh;q=0.9,en;q=0.8' \
+  -H 'cache-control: no-cache' \
+  -H 'origin: http://localhost:5174' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: http://localhost:5174/' \
+  -H 'sec-ch-ua: "Not)A;Brand";v="99", "Google Chrome";v="127", "Chromium";v="127"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'
