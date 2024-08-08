@@ -1,5 +1,5 @@
 <template>
-  <div class="fly-panel">
+  <div class="fly-panel" v-if="list.length > 0">
     <div class="fly-panel-title fly-filter">
       <a>置顶</a>
       <a

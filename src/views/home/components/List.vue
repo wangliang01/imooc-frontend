@@ -34,6 +34,8 @@ const page = ref(1) // 当前页码
 const size = ref(10) // 每页条数
 const category = ref('index') // 贴子分类， index-全部，ask-提问，advise-建议，discuss-交流，share-分享，news-动态
 
+const isRequest = ref(false)
+
 
 const handleSearch = (type) => {
   switch (type) {
@@ -67,6 +69,9 @@ const handleNextPage = () => {
 }
 
 const _getList = async () => {
+  if (isRequest.value) return
+  if (isEnd.value) return 
+  isRequest.value = true
   const params = {
     type: type.value,
     page: page.value,
@@ -76,9 +81,15 @@ const _getList = async () => {
     sort: sort.value,
   }
 
-  const res = await getList(params)
+  const res = await getList(params).finally(() => {
+    isRequest.value = false
+  })
 
   list.value = res.data
+
+  if (res.data.length < size.value) {
+    isEnd.value = true
+  }
   console.log("🚀 ~ const_getList= ~  list.value:",  list.value)
 
 
