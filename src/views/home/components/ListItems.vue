@@ -2,19 +2,19 @@
   <div>
     <ul class="fly-list">
       <li v-for="(item, index) in items" :key="'listitem' + index">
-        <router-link class="fly-avatar" :to="{ name: 'home', params: { uid: item.uid._id } }">
-          <img :src="item.uid.pic ? item.uid.pic : '/img/header.jpg'" alt="贤心" />
+        <router-link class="fly-avatar">
+          <img :src="item.user.avatar ? item.user.avatar : '/img/header.jpg'" alt="贤心" />
         </router-link>
         <h2>
-          <a class="layui-badge">{{ item.catalog }}</a>
-          <router-link :to="{ name: 'detail', params: { tid: item._id } }">
+          <a class="layui-badge">{{ item.category }}</a>
+          <router-link>
             {{ item.title }}
           </router-link>
         </h2>
         <div class="fly-list-info">
-          <router-link :to="{ name: 'home', params: { uid: item.uid._id } }">
-            <cite>{{ item.uid.name }}</cite>
-            <i class="layui-badge fly-badge-vip" v-if="item.uid.isVip !== '0'">{{ 'VIP' + item.uid.isVip }}</i>
+          <router-link :to="{ name: 'home', params: { uid: item.user.id } }">
+            <cite>{{ item.user.nickname }}</cite>
+            <i class="layui-badge fly-badge-vip" v-if="item.user.vip !== '0'">{{ 'VIP' + item.user.vip }}</i>
           </router-link>
           <span>{{ formatDate(item.created) }}</span>
 
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
@@ -67,6 +67,13 @@ const props = defineProps({
   },
 });
 
+watch(() => props.list, (value) => {
+  console.log("🚀 ~ watch ~ value:", value)
+}, {
+  immediate: true,
+  deep: true
+})
+
 const emit = defineEmits(['nextpage']);
 
 const catalogMap = {
@@ -80,8 +87,10 @@ const catalogMap = {
 
 const items = computed(() => {
   const clonedList = [...props.list];
+  console.log("🚀 ~ items ~ clonedList:", clonedList)
+  
   clonedList.forEach((item) => {
-    item.catalog = catalogMap[item.catalog] || item.catalog;
+    item.category = catalogMap[item.category] || item.category;
   });
   return clonedList
 });

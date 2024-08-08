@@ -77,7 +77,9 @@ const _getList = async () => {
   }
 
   const res = await getList(params)
-  console.log("🚀 ~ const_getList= ~ res:", res)
+
+  list.value = res.data
+  console.log("🚀 ~ const_getList= ~  list.value:",  list.value)
 
 
 }
@@ -85,6 +87,8 @@ const _getList = async () => {
 onMounted(() => {
   _getList()
 })
+
+
 </script>
 
 <style lang="scss" scoped></style>
