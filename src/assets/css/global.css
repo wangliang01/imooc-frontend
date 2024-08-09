@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'PingFang SC';
-  font-size: 18px;
+  font-size: 14px;
   src: url('../fonts/PingFangSC-Regular.otf') format('otf');
   font-weight: normal;
   font-style: normal;
@@ -10,7 +10,7 @@
 html,
 body {
   overflow-x: hidden;
-  font-family: "PingFang SC", "微软雅黑", "Microsoft Yahei", Arial, sans-serif;
+  /* font-family: "PingFang SC", "微软雅黑", "Microsoft Yahei", Arial, sans-serif; */
 }
 html {
   background-color: #f2f2f2;
@@ -754,7 +754,6 @@ pre {
   text-overflow: ellipsis;
 }
 .fly-list li h2 {
-  height: 26px;
   font-size: 0;
 }
 .fly-list li h2 a {
@@ -762,9 +761,9 @@ pre {
   max-width: 80%;
   padding-right: 10px;
   font-size: 16px;
+  line-height: 16px;
 }
 .fly-list li h2 .layui-badge {
-  top: -2px;
   height: 16px;
   line-height: 16px;
   padding: 0 5px;

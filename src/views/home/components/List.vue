@@ -65,12 +65,13 @@ const handleSearch = (type) => {
 }
 
 const handleNextPage = () => {
-  console.log('handleNextPage')
+  page.value += 1
+  _getList()
 }
 
 const _getList = async () => {
   if (isRequest.value) return
-  if (isEnd.value) return 
+  if (isEnd.value) return
   isRequest.value = true
   const params = {
     type: type.value,
@@ -85,12 +86,18 @@ const _getList = async () => {
     isRequest.value = false
   })
 
-  list.value = res.data
+  if (list.value.length === 0) {
+
+    list.value = res.data
+  } else {
+    list.value = list.value.concat(res.data)
+  }
+
 
   if (res.data.length < size.value) {
     isEnd.value = true
   }
-  console.log("🚀 ~ const_getList= ~  list.value:",  list.value)
+  console.log("🚀 ~ const_getList= ~  list.value:", list.value)
 
 
 }

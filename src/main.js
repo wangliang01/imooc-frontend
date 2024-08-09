@@ -7,6 +7,8 @@ import Layui from '@layui/layui-vue'
 import router from './router'
 import Alert from './components/Alert/index'
 import Confirm from './components/Confirm/index'
+import VueLazyLoad from 'vue3-lazyload'
+
 console.log("测试pipeline")
 
 const pinia = createPinia()
@@ -17,4 +19,5 @@ createApp(App)
   .use(pinia)
   .use(Alert)
   .use(Confirm)
+  .use(VueLazyLoad)
   .mount('#app')

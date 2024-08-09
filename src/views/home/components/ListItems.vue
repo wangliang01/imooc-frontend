@@ -3,7 +3,7 @@
     <ul class="fly-list">
       <li v-for="(item, index) in items" :key="'listitem' + index">
         <router-link class="fly-avatar borderd">
-          <img :src="item.user.avatar ? item.user.avatar : '/img/header.jpg'" alt="贤心" />
+          <img v-lazy="item.user.avatar ? item.user.avatar : 'https://picsum.photos/100/100'" alt="avatar" />
         </router-link>
         <h2 class="flex items-center">
           <a class="layui-badge">{{ item.category }}</a>
@@ -11,7 +11,7 @@
             {{ item.title }}
           </router-link>
         </h2>
-        <div class="fly-list-info flex items-center">
+        <div class="fly-list-info flex items-center mt-[10px]">
           <router-link :to="{ name: 'home', params: { uid: item.user.id } }">
             <cite>{{ item.user.nickname }}</cite>
             <i class="layui-badge fly-badge-vip" v-if="item.user.vip !== '0'">{{ 'VIP' + item.user.vip }}</i>
