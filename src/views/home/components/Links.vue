@@ -18,7 +18,14 @@
 </template>
 
 <script setup>
-const list = []
+import { getLinks } from '@/api/content'
+import { onMounted, ref } from 'vue'
+const list = ref([])
+
+onMounted(async () => {
+  const res = await getLinks()
+  list.value = res.data
+})
 </script>
 
 <style lang="scss" scoped>

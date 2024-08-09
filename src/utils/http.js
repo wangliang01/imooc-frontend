@@ -1,8 +1,10 @@
 import axios from 'axios'
 import handleError from './handleError'
+const CancelToken = axios.CancelToken
 class HttpRequest {
   constructor(baseUrl) {
     this.baseUrl = baseUrl
+    this.requestMap = new Map()
   }
 /**
  * 获取内部配置对象
@@ -28,6 +30,16 @@ interceptors(instance) {
   // 请求拦截器：在发送请求之前做些什么，例如设置请求头
   instance.interceptors.request.use(
     (config) => {
+      const key = `${config.url}&${config.method}`
+      if (this.requestMap.has(key)) {
+        this.requestMap.get(key)("取消重复请求")
+        this.requestMap.delete(key)
+      }
+       // 取消请求
+      config.cancelToken = new CancelToken(cancel => {
+        // 将取消请求的函数存储到请求配置对象中
+        this.requestMap.set(key, cancel)
+      })
       // 返回经过处理的配置对象
       return config;
     },
@@ -40,10 +52,18 @@ interceptors(instance) {
   // 响应拦截器：在接收到响应之后做些什么，例如处理响应数据或错误
   instance.interceptors.response.use(
     (res) => {
+      const key = `${res.config.url}&${res.config.method}`
+      if (this.requestMap.has(key)) {
+        this.requestMap.delete(key)
+      }
       // 返回响应数据的主体部分
       return res.data;
     },
     (error) => {
+      const key = `${error.config.url}&${error.config.method}`;
+      if (this.requestMap.has(key)) {
+        this.requestMap.delete(key); // 清理已取消的请求
+      }
       // 响应错误处理：对响应错误进行处理，例如显示错误提示
       return handleError(error);
     }
@@ -80,6 +100,9 @@ request(options) {
  * @returns {Promise} - 返回一个Promise对象，该对象在请求完成后解析为响应数据。
  */
 get(url, params, options = {}) {
+  if (!url || typeof url !== 'string') {
+    throw new Error('Invalid URL');
+  }
   // 构造请求配置对象，并指定请求方法为GET。
   return this.request({
     ...options, // 展开options对象，以包含所有提供的选项。
@@ -100,6 +123,9 @@ get(url, params, options = {}) {
  * @returns {Promise} - 返回一个Promise对象，用于异步处理请求的结果。
  */
 post(url, data, options) {
+  if (!url || typeof url !== 'string') {
+    throw new Error('Invalid URL');
+  }
   // 配置请求参数，并调用request方法发送请求
   return this.request({
     ...options, // 展开options对象，合并入配置中

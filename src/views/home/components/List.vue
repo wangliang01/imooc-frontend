@@ -21,9 +21,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import ListItems from './ListItems.vue';
 import { getList } from '@/api/content'
+import { useRoute } from 'vue-router';
 const list = ref([])
 const status = ref('') // 0-未结贴， 1-已结贴
 const sort = ref('created') // 按最新-created, 按热议-answer
@@ -32,10 +33,16 @@ const isEnd = ref(false)
 const type = ref('0') // 0-普通列表，1-置顶列表
 const page = ref(1) // 当前页码
 const size = ref(10) // 每页条数
-const category = ref('index') // 贴子分类， index-全部，ask-提问，advise-建议，discuss-交流，share-分享，news-动态
+
 
 const isRequest = ref(false)
+const route = useRoute()
 
+
+const category = computed(() => {
+  // 贴子分类， index-全部，ask-提问，advise-建议，discuss-交流，share-分享，news-动态
+  return route.params.category || 'index'
+})
 
 const handleSearch = (type) => {
   switch (type) {
@@ -62,6 +69,20 @@ const handleSearch = (type) => {
       tag.value = ''
       break;
   }
+
+  _init()
+}
+
+watch(() => route.fullPath, () => {
+  _init()
+})
+
+
+const _init = () => {
+  page.value = 1
+  list.value = []
+  isEnd.value = false
+  _getList()
 }
 
 const handleNextPage = () => {
@@ -80,6 +101,7 @@ const _getList = async () => {
     category: category.value,
     status: status.value,
     sort: sort.value,
+    tag: tag.value
   }
 
   const res = await getList(params).finally(() => {
