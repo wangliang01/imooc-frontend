@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="confirm" v-show="isShow">
+    <div v-show="isShow" class="confirm">
       <div class="container">
         <div class="content">
           <div class="msg">{{ msg }}</div>
@@ -24,11 +24,11 @@ const props = defineProps({
   },
   cancel: {
     type: Function,
-    default: () => { }
+    default: () => {}
   },
   success: {
     type: Function,
-    default: () => { }
+    default: () => {}
   }
 })
 const isShow = ref(true)

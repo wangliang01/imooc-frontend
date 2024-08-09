@@ -2,7 +2,7 @@
 import { onMounted, ref, reactive } from 'vue'
 import request from '@/utils/request'
 import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, maxLength, helpers} from '@vuelidate/validators'
+import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 
 const captcha = ref('')
 
@@ -62,7 +62,6 @@ const handleLogin = async (e) => {
   console.log('submit')
 }
 
-
 const getCaptcha = async () => {
   const res = await request.get('/captcha')
   captcha.value = res
@@ -71,14 +70,13 @@ const getCaptcha = async () => {
 onMounted(() => {
   getCaptcha()
 })
-
 </script>
 
 <template>
   <div class="bg-[#f2f2f2] min-h-screen flex items-center">
     <div class="flex gap-2 layui-container rounded-xl overflow-hidden items-center bg-white">
       <div class="w-[700px] h-[600px]">
-        <img src="https://picsum.photos/700/600" alt="">
+        <img src="https://picsum.photos/700/600" alt="" />
       </div>
       <div class="flex-1">
         <h1 class="text-center font-bold text-2xl">IMOOC管理系统</h1>
@@ -89,8 +87,17 @@ onMounted(() => {
                 <div class="layui-input-prefix">
                   <i class="layui-icon layui-icon-username"></i>
                 </div>
-                <input type="text" name="username" v-model.trim="state.username" lay-verify="required" placeholder="用户名"
-                  lay-reqtext="请填写用户名" autocomplete="off" class="layui-input" lay-affix="clear">
+                <input
+                  v-model.trim="state.username"
+                  type="text"
+                  name="username"
+                  lay-verify="required"
+                  placeholder="用户名"
+                  lay-reqtext="请填写用户名"
+                  autocomplete="off"
+                  class="layui-input"
+                  lay-affix="clear"
+                />
                 <p v-if="$v.username.$error" class="text-xs text-red-600">{{ $v.username.$errors[0].$message }}</p>
               </div>
             </div>
@@ -99,8 +106,17 @@ onMounted(() => {
                 <div class="layui-input-prefix">
                   <i class="layui-icon layui-icon-password"></i>
                 </div>
-                <input type="password" name="password" v-model="state.password" lay-verify="required"
-                  placeholder="密   码" lay-reqtext="请填写密码" autocomplete="off" class="layui-input" lay-affix="eye">
+                <input
+                  v-model="state.password"
+                  type="password"
+                  name="password"
+                  lay-verify="required"
+                  placeholder="密   码"
+                  lay-reqtext="请填写密码"
+                  autocomplete="off"
+                  class="layui-input"
+                  lay-affix="eye"
+                />
                 <p v-if="$v.password.$error" class="text-xs text-red-600">{{ $v.password.$errors[0].$message }}</p>
               </div>
             </div>
@@ -111,32 +127,40 @@ onMounted(() => {
                     <div class="layui-input-prefix">
                       <i class="layui-icon layui-icon-vercode"></i>
                     </div>
-                    <input type="text" name="captcha" v-model="state.code" lay-verify="required" placeholder="验证码"
-                      lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
+                    <input
+                      v-model="state.code"
+                      type="text"
+                      name="captcha"
+                      lay-verify="required"
+                      placeholder="验证码"
+                      lay-reqtext="请填写验证码"
+                      autocomplete="off"
+                      class="layui-input"
+                      lay-affix="clear"
+                    />
                     <p v-if="$v.code.$error" class="text-xs text-red-600">{{ $v.code.$errors[0].$message }}</p>
                   </div>
                 </div>
                 <div class="layui-col-xs5">
-                  <div style="margin-left: 10px;">
-                    <div v-html="captcha" @click="getCaptcha" class="cursor-pointer"></div>
+                  <div style="margin-left: 10px">
+                    <div class="cursor-pointer" @click="getCaptcha" v-html="captcha"></div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="layui-form-item">
-              <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-              <a href="#forget" style="float: right; margin-top: 7px;">忘记密码？</a>
+              <input type="checkbox" name="remember" lay-skin="primary" title="记住密码" />
+              <a href="#forget" style="float: right; margin-top: 7px">忘记密码？</a>
             </div>
             <div class="layui-form-item">
-              <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-login"
-                @click="handleLogin">登录</button>
+              <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-login" @click="handleLogin">登录</button>
             </div>
             <div class="layui-form-item demo-login-other">
               <label>社交账号登录</label>
-              <span style="padding: 0 21px 0 6px;">
-                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq" style="color: #3492ed;"></i></a>
-                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat" style="color: #4daf29;"></i></a>
-                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo" style="color: #cf1900;"></i></a>
+              <span style="padding: 0 21px 0 6px">
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq" style="color: #3492ed"></i></a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat" style="color: #4daf29"></i></a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo" style="color: #cf1900"></i></a>
               </span>
               或 <a href="#register">注册帐号</a>
             </div>

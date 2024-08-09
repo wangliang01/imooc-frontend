@@ -11,72 +11,35 @@
             <!--重置密码-->
           </li>
         </ul>
-        <div
-          class="layui-form layui-tab-content"
-          id="LAY_ucm"
-          style="padding: 20px 0"
-        >
+        <div id="LAY_ucm" class="layui-form layui-tab-content" style="padding: 20px 0">
           <div class="layui-tab-item layui-show">
             <div class="layui-form layui-form-pane">
               <form method="post">
                 <div class="layui-form-item">
                   <label for="L_email" class="layui-form-label">用户名</label>
                   <div class="layui-input-inline">
-                    <input
-                      type="text"
-                      name="username"
-                      v-model="username"
-                      v-bind="usernameAttrs"
-                      placeholder="请输入用户名"
-                      autocomplete="off"
-                      class="layui-input"
-                    />
+                    <input v-model="username" type="text" name="username" v-bind="usernameAttrs" placeholder="请输入用户名" autocomplete="off" class="layui-input" />
                   </div>
                   <div class="layui-form-mid">
-                    <span v-if="errors.username" class="text-red-600">{{
-                      errors.username.message
-                    }}</span>
+                    <span v-if="errors.username" class="text-red-600">{{ errors.username.message }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
                   <div class="layui-row">
-                    <label for="L_vercode" class="layui-form-label"
-                      >验证码</label
-                    >
+                    <label for="L_vercode" class="layui-form-label">验证码</label>
                     <div class="layui-input-inline">
-                      <input
-                        type="text"
-                        name="code"
-                        v-model="code"
-                        v-bind="codeAttrs"
-                        placeholder="请输入验证码"
-                        autocomplete="off"
-                        class="layui-input"
-                      />
+                      <input v-model="code" type="text" name="code" v-bind="codeAttrs" placeholder="请输入验证码" autocomplete="off" class="layui-input" />
                     </div>
                     <div class>
-                      <span
-                        class="svg"
-                        @click="getCaptcha"
-                        v-html="captcha"
-                      ></span>
+                      <span class="svg" @click="getCaptcha" v-html="captcha"></span>
                     </div>
                   </div>
                   <div class="layui-form-mid">
-                    <span v-if="errors.code" class="text-red-600">{{
-                      errors.code.message
-                    }}</span>
+                    <span v-if="errors.code" class="text-red-600">{{ errors.code.message }}</span>
                   </div>
                 </div>
                 <div class="layui-form-item">
-                  <button
-                    type="button"
-                    class="layui-btn"
-                    alert="1"
-                    @click="handleSubmit"
-                  >
-                    提交
-                  </button>
+                  <button type="button" class="layui-btn" alert="1" @click="handleSubmit">提交</button>
                 </div>
               </form>
             </div>
@@ -97,15 +60,8 @@ const captcha = ref('')
 
 const { defineField, errors, validate } = useForm({
   validationSchema: {
-    username: yup
-      .string()
-      .required({ message: '请输入用户名' })
-      .email({ message: '请输入正确的邮箱' }),
-    code: yup
-      .string()
-      .required({ message: '请输入验证码' })
-      .min(4, { message: '验证码只支持4位' })
-      .max(4, { message: '验证码只支持4位' })
+    username: yup.string().required({ message: '请输入用户名' }).email({ message: '请输入正确的邮箱' }),
+    code: yup.string().required({ message: '请输入验证码' }).min(4, { message: '验证码只支持4位' }).max(4, { message: '验证码只支持4位' })
   }
 })
 

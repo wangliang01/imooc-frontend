@@ -1,11 +1,11 @@
-import { createRouter, createWebHashHistory  } from "vue-router";
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-import routes from "./routes";
+import routes from './routes'
 
 const router = createRouter({
-  linkExactActiveClass: "layui-this",
+  linkExactActiveClass: 'layui-this',
   history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes,
-});
+  routes
+})
 
-export default router;
+export default router

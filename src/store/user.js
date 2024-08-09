@@ -1,9 +1,9 @@
-import { defineStore } from "pinia";
-import local from "../utils/local"
+import { defineStore } from 'pinia'
+import local from '../utils/local'
 export const useUserStore = defineStore('user', {
   state: () => ({
     user: {},
-    token: local.get('token') || '',
+    token: local.get('token') || ''
   }),
   getters: {
     isLogin() {

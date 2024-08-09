@@ -17,3 +17,53 @@ curl 'https://apifoxmock.com/m1/4855938-4511428-default/api/public/list?type=0&p
   -H 'sec-fetch-mode: cors' \
   -H 'sec-fetch-site: cross-site' \
   -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'
+
+
+
+###
+curl 'http://bfs-sso.bfs.qa.yunlizhi.net/unify_login' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' \
+  -H 'Authorization: Bearer 316BBF6CE9724F46990F46DC48865234' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:3002' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: http://localhost:3002/' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36' \
+  -H 'needDataEncrypt: true' \
+  --data-raw '{"clientCode":"OTBWMS_WEB","loginType":"MOBILE","extendLoginType":"ACCOUNT","identityType":"TENANT","loginAuth":"PASSWORD","identifier":"15881105880","credential":"KjrOgSEuQcqQCQl5M6VedgbLjS3enHj3/lbKr8tFClJo5z365HAXE63g1u5WzxgT1hQkxyjqaon57GbKT5HsDVjbLso5Fj80z2Y0uA1e7BGLsDbrGcxmyrSs54CIITjf+fOuZMMt4bboU0oM1rOxReJWvd9ZsGpSF9BDhPpmUO8=","ignoreEncrypt":false}' \
+  --insecure
+
+###
+curl 'http://bfs-user-web.bfs.qa.yunlizhi.net/permission-plus/system/get/by_user_id' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' \
+  -H 'Authorization: Bearer B3BB559981C14EF299B750A147CD9DDC' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:3002' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: http://localhost:3002/' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36' \
+  -H 'needDataEncrypt: true' \
+  --data-raw '{"userId":"3f33399649d64a87aa3de5651cea7ba4"}' \
+  --insecure
+
+### 
+curl 'http://bfs-user-web.bfs.qa.yunlizhi.net/bfs-user/memory/detail' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' \
+  -H 'Authorization: Bearer B3BB559981C14EF299B750A147CD9DDC' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: http://localhost:3002' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: http://localhost:3002/' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36' \
+  -H 'needDataEncrypt: true' \
+  --data-raw '{"userId":"3f33399649d64a87aa3de5651cea7ba4-T10","systemCode":"otms"}' \
+  --insecure

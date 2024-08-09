@@ -2,17 +2,16 @@
   <div class="fly-panel fly-column">
     <div class="layui-container">
       <ul class="flex layui-clear">
-        <router-link v-slot="{  isExactActive }" to="/">
+        <router-link v-slot="{ isExactActive }" to="/">
           <li :class="{ 'layui-this': isExactActive }" class="px-5 layui-hide-xs">
             <a>首页</a>
           </li>
         </router-link>
-        <router-link v-slot="{  isExactActive }" v-for="(item, index) in list" :key="'panel' + index"
-          :to="item.path">
+        <router-link v-for="(item, index) in list" v-slot="{ isExactActive }" :key="'panel' + index" :to="item.path">
           <li :class="{ 'layui-this': isExactActive }" class="px-5">
             <a>
               {{ item.name }}
-              <span class="layui-badge-dot" v-if="item.isNew"></span>
+              <span v-if="item.isNew" class="layui-badge-dot"></span>
             </a>
           </li>
         </router-link>
@@ -36,8 +35,7 @@
         </span>
         <router-link class="layui-btn">发表新帖</router-link>
       </div>
-      <div class="layui-hide-sm layui-show-xs-block"
-        style="margin-top: -10px; padding-bottom: 10px; text-align: center">
+      <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center">
         <router-link to="/index/post" class="layui-btn">发表新帖</router-link>
       </div>
     </div>

@@ -7,9 +7,9 @@
     <p>
       <a href="https://mp.weixin.qq.com/s/wDY7UuQld3U6zub5MUCtbQ" target="_blank">加入团队</a>
       <a href="https://mp.weixin.qq.com/s/H9JI0dR1jPUN12qsRZ2r5Q" target="_blank">React兴趣小组</a>
-      <a href="javascript:void(0)" @mouseover="show()" @mouseout="hide()" style="position:relative;">
+      <a href="javascript:void(0)" style="position: relative" @mouseover="show()" @mouseout="hide()">
         微信公众号
-        <img class="qr" v-if="isShow" src="../assets/img/qrcode-small.jpg" alt />
+        <img v-if="isShow" class="qr" src="../assets/img/qrcode-small.jpg" alt />
       </a>
     </p>
   </div>
@@ -33,7 +33,6 @@ defineExpose({
   show,
   hide
 })
-
 </script>
 
 <style lang="scss" scoped>

@@ -5,21 +5,15 @@
         <a class="w-[200px] h-[60px]" href="/">
           <img src="../assets/img/logo-2.png" alt="layui" class="w-[200px] h-[60px]" />
         </a>
-        <ul class="layui-nav  layui-hide-xs ml-auto">
+        <ul class="layui-nav layui-hide-xs ml-auto">
           <li class="layui-nav-item layui-this">
-            <a href="/" class="flex items-center">
-              <i class="iconfont icon-jiaoliu"></i>交流
-            </a>
+            <a href="/" class="flex items-center"> <i class="iconfont icon-jiaoliu"></i>交流 </a>
           </li>
           <li class="layui-nav-item">
-            <a href="case/case.html" class="flex items-center">
-              <i class="iconfont icon-iconmingxinganli"></i>案例
-            </a>
+            <a href="case/case.html" class="flex items-center"> <i class="iconfont icon-iconmingxinganli"></i>案例 </a>
           </li>
           <li class="layui-nav-item">
-            <a href="http://www.layui.com/" target="_blank" class="flex items-center">
-              <i class="iconfont icon-ui"></i>框架
-            </a>
+            <a href="http://www.layui.com/" target="_blank" class="flex items-center"> <i class="iconfont icon-ui"></i>框架 </a>
           </li>
         </ul>
         <ul class="ml-auto layui-nav">
@@ -30,27 +24,21 @@
           <li class="layui-nav-item layui-hide-sm">
             <router-link :to="{ name: 'login' }">登入</router-link>
           </li>
-          <li class="layui-nav-item layui-hide-sm" >
+          <li class="layui-nav-item layui-hide-sm">
             <router-link :to="{ name: 'register' }">注册</router-link>
           </li>
           <li class="layui-nav-item layui-hide-sm">
-            <a href onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入"
-              class="iconfont icon-qq"></a>
+            <a href onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
           </li>
           <li class="layui-nav-item layui-hide-sm">
-            <a href onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入"
-              class="iconfont icon-weibo"></a>
+            <a href onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
           </li>
         </ul>
       </div>
-
     </div>
   </div>
 </template>
 
-<script setup>
-
-
-</script>
+<script setup></script>
 
 <style lang="scss" scoped></style>

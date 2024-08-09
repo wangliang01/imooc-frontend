@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import ImoocPanel from "@/components/Panel.vue"
+import ImoocPanel from '@/components/Panel.vue'
 </script>
 
 <style lang="scss" scoped></style>

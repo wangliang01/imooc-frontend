@@ -26,12 +26,9 @@
 //   }
 // )
 
-import HttpRequest from "./http"
-
-
+import HttpRequest from './http'
 
 const request = new HttpRequest(import.meta.env.VITE_BASE_URL)
-console.log("🚀 ~ import.meta.env.VITE_BASE_URL:", import.meta.env.VITE_BASE_URL)
-
+console.log('🚀 ~ import.meta.env.VITE_BASE_URL:', import.meta.env.VITE_BASE_URL)
 
 export default request

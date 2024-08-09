@@ -1,6 +1,6 @@
-import { alert } from "../components/Alert"
+import { alert } from '../components/Alert'
 
-const handleError = error => {
+const handleError = (error) => {
   if (error.response) {
     let msg = ''
     if (error.response.status === 404) {
@@ -10,7 +10,7 @@ const handleError = error => {
     }
     alert(msg)
   }
-  return Promise.reject(error);
-}   
+  return Promise.reject(error)
+}
 
-export default handleError;
+export default handleError

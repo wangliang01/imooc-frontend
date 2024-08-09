@@ -14,7 +14,7 @@
         <div class="fly-list-info flex items-center mt-[10px]">
           <router-link :to="{ name: 'home', params: { uid: item.user.id } }">
             <cite>{{ item.user.nickname }}</cite>
-            <i class="layui-badge fly-badge-vip" v-if="item.user.vip !== '0'">{{ 'VIP' + item.user.vip }}</i>
+            <i v-if="item.user.vip !== '0'" class="layui-badge fly-badge-vip">{{ 'VIP' + item.user.vip }}</i>
           </router-link>
           <span>{{ formatDate(item.created) }}</span>
 
@@ -22,59 +22,62 @@
             <i class="iconfont icon-kiss"></i>
             {{ item.fav }}
           </span>
-          <span class="layui-badge fly-badge-accept layui-hide-xs" v-show="item.status !== '0'">已结</span>
+          <span v-show="item.status !== '0'" class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
           <span class="fly-list-nums">
             <i class="iconfont icon-pinglun1" title="回答"></i>
             {{ item.answerNum }}
           </span>
         </div>
-        <div class="fly-list-badge" v-show="item.tags.length > 0 && item.tags[0].name !== ''">
-          <span class="layui-badge" v-for="(tag, tagIndex) in item.tags" :key="'tag' + tagIndex" :class="tag.class">{{
-            tag.name }}</span>
+        <div v-show="item.tags.length > 0 && item.tags[0].name !== ''" class="fly-list-badge">
+          <span v-for="(tag, tagIndex) in item.tags" :key="'tag' + tagIndex" class="layui-badge" :class="tag.class">{{ tag.name }}</span>
         </div>
       </li>
     </ul>
     <div v-if="isShow" style="text-align: center">
-      <div class="laypage-main" v-if="!isEnd">
-        <a @click.prevent="handleLoadMore" class="laypage-next cursor-pointer">更多求解</a>
+      <div v-if="!isEnd" class="laypage-main">
+        <a class="laypage-next cursor-pointer" @click.prevent="handleLoadMore">更多求解</a>
       </div>
-      <div class="nomore gray" v-else>没有更多了</div>
+      <div v-else class="nomore gray">没有更多了</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import 'dayjs/locale/zh-cn';
+import { computed, watch } from 'vue'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/zh-cn'
 
-dayjs.extend(relativeTime);
-dayjs.locale('zh-cn');
+dayjs.extend(relativeTime)
+dayjs.locale('zh-cn')
 
 const props = defineProps({
   list: {
     default: () => [],
-    type: Array,
+    type: Array
   },
   isShow: {
     default: true,
-    type: Boolean,
+    type: Boolean
   },
   isEnd: {
     default: false,
-    type: Boolean,
-  },
-});
-
-watch(() => props.list, (value) => {
-  console.log("🚀 ~ watch ~ value:", value)
-}, {
-  immediate: true,
-  deep: true
+    type: Boolean
+  }
 })
 
-const emit = defineEmits(['nextpage']);
+watch(
+  () => props.list,
+  (value) => {
+    console.log('🚀 ~ watch ~ value:', value)
+  },
+  {
+    immediate: true,
+    deep: true
+  }
+)
+
+const emit = defineEmits(['nextpage'])
 
 const catalogMap = {
   index: '',
@@ -83,31 +86,30 @@ const catalogMap = {
   logs: '动态',
   notice: '公告',
   advise: '建议',
-  discuss: '交流',
-};
-
-const items = computed(() => {
-  const clonedList = [...props.list];
-  console.log("🚀 ~ items ~ clonedList:", clonedList)
-  
-  clonedList.forEach((item) => {
-    item.category = catalogMap[item.category] || item.category;
-  });
-  return clonedList
-});
-
-function handleLoadMore() {
-  emit('nextpage');
+  discuss: '交流'
 }
 
+const items = computed(() => {
+  const clonedList = [...props.list]
+  console.log('🚀 ~ items ~ clonedList:', clonedList)
+
+  clonedList.forEach((item) => {
+    item.category = catalogMap[item.category] || item.category
+  })
+  return clonedList
+})
+
+function handleLoadMore() {
+  emit('nextpage')
+}
 
 const formatDate = (date) => {
   // 超过7天，显示日期
   if (dayjs(date).isBefore(dayjs().subtract(7, 'day'))) {
-    return dayjs(date).format('YYYY-MM-DD');
+    return dayjs(date).format('YYYY-MM-DD')
   } else {
     // 1小时前，xx小时前，X天前
-    return dayjs(date).fromNow();
+    return dayjs(date).fromNow()
   }
 }
 </script>

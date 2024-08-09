@@ -9,15 +9,8 @@ import Alert from './components/Alert/index'
 import Confirm from './components/Confirm/index'
 import VueLazyLoad from 'vue3-lazyload'
 
-console.log("测试pipeline")
+console.log('测试pipeline')
 
 const pinia = createPinia()
 
-createApp(App)
-  .use(Layui)
-  .use(router)
-  .use(pinia)
-  .use(Alert)
-  .use(Confirm)
-  .use(VueLazyLoad)
-  .mount('#app')
+createApp(App).use(Layui).use(router).use(pinia).use(Alert).use(Confirm).use(VueLazyLoad).mount('#app')

@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="alert" v-show="isShow">
+    <div v-show="isShow" class="alert">
       <div class="container">
         <div class="content">
           <div class="msg">{{ msg }}</div>
@@ -21,7 +21,7 @@ const props = defineProps({
   },
   onClose: {
     type: Function,
-    default: () => { }
+    default: () => {}
   }
 })
 const isShow = ref(true)
@@ -47,8 +47,6 @@ defineExpose({
   show,
   close
 })
-
-
 </script>
 
 <style lang="scss" scoped>

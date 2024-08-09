@@ -1,7 +1,7 @@
-import Storage from "./storage";
+import Storage from './storage'
 
-const local = new Storage();
+const local = new Storage()
 
-local.initNamespaceStorage("imooc");
+local.initNamespaceStorage('imooc')
 
-export default local;
+export default local

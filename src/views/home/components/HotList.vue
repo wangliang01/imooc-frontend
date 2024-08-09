@@ -3,10 +3,10 @@
     <dl class="fly-panel fly-list-one">
       <dt class="fly-panel-title">本周热议</dt>
       <dd v-for="(item, index) in list" :key="'hotlist' + index">
-        <router-link :to="{name: 'detail', params: {tid: item._id}}">{{item.title}}</router-link>
+        <router-link :to="{ name: 'detail', params: { tid: item._id } }">{{ item.title }}</router-link>
         <span>
           <i class="iconfont icon-pinglun1"></i>
-          {{item.answer}}
+          {{ item.answer }}
         </span>
       </dd>
       <!-- 无数据时 -->
@@ -21,6 +21,4 @@
 const list = []
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
