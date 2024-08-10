@@ -32,12 +32,12 @@
                 </div>
                 <div class="layui-form-item">
                   <div class="layui-row">
-                    <label for="L_vercode" class="layui-form-label">验证码</label>
+                    <label for="code" class="layui-form-label">验证码</label>
                     <div class="layui-input-inline">
-                      <input v-model="code" type="text" name="code" v-bind="codeAttrs" placeholder="请输入验证码" autocomplete="off" class="layui-input" />
+                      <input id="code" v-model="code" type="text" v-bind="codeAttrs" placeholder="请输入验证码" autocomplete="off" class="layui-input" />
                     </div>
-                    <div class>
-                      <span class="cursor-pointer svg" @click="getCaptcha" v-html="captcha"></span>
+                    <div class="inline-block">
+                      <span class="cursor-pointer svg relative top-[-4px]" @click.stop="getCaptcha" v-html="captcha"></span>
                     </div>
                   </div>
                   <div class="layui-form-mid">
