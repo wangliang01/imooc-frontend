@@ -19,3 +19,8 @@ export function getTop() {
 export function getLinks() {
   return request.get('/public/links')
 }
+
+// 本周热门
+export function getTopWeek() {
+  return request.get('/public/topWeek')
+}

@@ -11,7 +11,7 @@
       <span class="fly-filter-right layui-hide-xs">
         <a :class="{ 'layui-this': sort === 'created' }" class="cursor-pointer" @click.prevent="handleSearch(3)">按最新</a>
         <span class="fly-mid"></span>
-        <a :class="{ 'layui-this': sort === 'answer' }" class="cursor-pointer" @click.prevent="handleSearch(4)">按热议</a>
+        <a :class="{ 'layui-this': sort === 'answerNum' }" class="cursor-pointer" @click.prevent="handleSearch(4)">按热议</a>
       </span>
     </div>
     <list-items :list="list" :is-end="isEnd" @nextpage="handleNextPage()"></list-items>
@@ -25,7 +25,7 @@ import { getList } from '@/api/content'
 import { useRoute } from 'vue-router'
 const list = ref([])
 const status = ref('') // 0-未结贴， 1-已结贴
-const sort = ref('created') // 按最新-created, 按热议-answer
+const sort = ref('created') // 按最新-created, 按热议-answerNum
 const tag = ref('') // 精华
 const isEnd = ref(false)
 const type = ref('0') // 0-普通列表，1-置顶列表
@@ -58,7 +58,7 @@ const handleSearch = (type) => {
       sort.value = 'created'
       break
     case 4:
-      sort.value = 'answer'
+      sort.value = 'answerNum'
       break
     default:
       status.value = ''

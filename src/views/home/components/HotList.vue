@@ -3,10 +3,10 @@
     <dl class="fly-panel fly-list-one">
       <dt class="fly-panel-title">本周热议</dt>
       <dd v-for="(item, index) in list" :key="'hotlist' + index">
-        <router-link :to="{ name: 'detail', params: { tid: item._id } }">{{ item.title }}</router-link>
+        <router-link>{{ item.title }}</router-link>
         <span>
           <i class="iconfont icon-pinglun1"></i>
-          {{ item.answer }}
+          {{ item.answerNum }}
         </span>
       </dd>
       <!-- 无数据时 -->
@@ -18,7 +18,15 @@
 </template>
 
 <script setup>
-const list = []
+import { getTopWeek } from '@/api/content'
+import { onMounted, ref } from 'vue'
+const list = ref([])
+
+onMounted(async () => {
+  const res = await getTopWeek()
+  list.value = res.data
+  console.log('🚀 ~ onMounted ~ list.value:', list.value)
+})
 </script>
 
 <style lang="scss" scoped></style>

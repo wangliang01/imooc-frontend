@@ -72,7 +72,7 @@
                       <input id="code" v-model="code" type="text" name="code" v-bind="codeAttrs" placeholder="请输入验证码" autocomplete="off" class="layui-input" />
                     </div>
                     <div class="inline-block">
-                      <span class="svg cursor-pointer relative top-[-4px]" @click.stop="getCaptcha" v-html="captcha"></span>
+                      <span class="svg cursor-pointer relative top-[-6px]" @click.stop="getCaptcha" v-html="captcha"></span>
                     </div>
                   </div>
                   <div class="layui-form-mid">
