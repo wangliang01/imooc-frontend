@@ -1,14 +1,14 @@
 <template>
   <div class="fly-panel fly-column">
     <div class="layui-container">
-      <ul class="flex layui-clear">
+      <ul class="layui-clear">
         <router-link v-slot="{ isExactActive }" to="/">
-          <li :class="{ 'layui-this': isExactActive }" class="px-5 layui-hide-xs">
+          <li :class="{ 'layui-this': isExactActive }" class="layui-hide-xs layui-col-sm4 layui-col-md3 layui-col-lg1">
             <a>首页</a>
           </li>
         </router-link>
         <router-link v-for="(item, index) in list" v-slot="{ isExactActive }" :key="'panel' + index" :to="item.path">
-          <li :class="{ 'layui-this': isExactActive }" class="px-5">
+          <li :class="{ 'layui-this': isExactActive }" class="layui-col-sm4 layui-col-md3 layui-col-lg1">
             <a>
               {{ item.name }}
               <span v-if="item.isNew" class="layui-badge-dot"></span>
@@ -21,10 +21,10 @@
 
         <template v-if="isLogin">
           <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
-            <router-link :to="{ name: 'mypost' }">我发表的贴</router-link>
+            <router-link>我发表的贴</router-link>
           </li>
           <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
-            <router-link :to="{ name: 'mycollection' }">我收藏的贴</router-link>
+            <router-link>我收藏的贴</router-link>
           </li>
         </template>
       </ul>
@@ -43,7 +43,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useUserStore } from '@/store/user'
 const list = ref([
   {
     name: '提问',
@@ -77,7 +78,13 @@ const list = ref([
   }
 ])
 
-const isLogin = ref(false)
+const userStore = useUserStore()
+
+console.log(userStore.isLogin)
+
+const isLogin = computed(() => {
+  return userStore.isLogin
+})
 </script>
 
 <style lang="scss" scoped></style>

@@ -71,7 +71,8 @@ import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { v4 as uuid } from 'uuid'
 import { useGlobalStore } from '../../store/global'
-import { alert } from '../../components/Alert'
+import { useUserStore } from '../../store/user'
+import { useRouter } from 'vue-router'
 const captcha = ref('')
 
 const { defineField, errors, validate } = useForm({
@@ -89,6 +90,8 @@ const [password, passwordAttrs] = defineField('password')
 const [code, codeAttrs] = defineField('code')
 
 const store = useGlobalStore()
+const userStore = useUserStore()
+const router = useRouter()
 
 // 登录
 const handleLogin = async (e) => {
@@ -102,9 +105,11 @@ const handleLogin = async (e) => {
     sid: store.sid
   }
 
-  await login(params)
+  const res = await login(params)
 
-  alert('登录成功')
+  userStore.setUser(res.data)
+  userStore.setToken(res.data.token)
+  router.push('/')
 }
 
 const getCaptcha = async () => {

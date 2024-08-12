@@ -21,16 +21,16 @@
           <li class="layui-nav-item">
             <router-link class="iconfont icon-touxiang layui-hide-xs" to="/user123123"></router-link>
           </li>
-          <li class="layui-nav-item sm:hidden">
+          <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
             <router-link :to="{ name: 'login' }">登入</router-link>
           </li>
-          <li class="layui-nav-item">
+          <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
             <router-link :to="{ name: 'register' }">注册</router-link>
           </li>
-          <li class="layui-nav-item">
+          <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
             <a href onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
           </li>
-          <li class="layui-nav-item">
+          <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
             <a href onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
           </li>
         </ul>

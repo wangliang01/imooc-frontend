@@ -545,7 +545,7 @@ pre {
 
 /* 专栏 */
 .fly-column {
-  height: 50px;
+  min-height: 50px;
   line-height: 50px;
 }
 .fly-column ul li {

@@ -18,7 +18,7 @@
     <div class="fly-panel-main fly-signin-main">
       <template v-if="!isSign">
         <button id="LAY_signin" class="layui-btn layui-btn-danger" @click="sign()">今日签到</button>
-        <span>
+        <span class="layui-hide-sm layui-show-md-inline-block">
           可获得
           <cite>{{ favs }}</cite
           >飞吻
