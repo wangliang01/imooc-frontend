@@ -1,0 +1,1 @@
+import{C as s}from"./index-C1-Dz8HJ.js";import{l as t}from"./local-DJ5KRZrJ.js";const n=s("user",{state:()=>({user:{},token:t.get("token")||""}),getters:{isLogin(){return!!this.token}},actions:{setUser(e){this.user=e,t.set("user",e)},setToken(e){this.token=e,t.set("token",e)}}});export{n as u};
