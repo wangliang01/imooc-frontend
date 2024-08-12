@@ -107,8 +107,8 @@ const handleLogin = async (e) => {
 
   const res = await login(params)
 
-  userStore.setUser(res.data)
   userStore.setToken(res.data.token)
+  userStore.setUser(res.data)
   router.push('/')
 }
 

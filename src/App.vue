@@ -16,4 +16,5 @@ import VFooter from '@/components/Footer.vue'
 @import url('./assets/css/layui/css/layui.css');
 @import url('./assets/css/full.css');
 @import url('./assets/css/global.css');
+@import url('./assets/css/iconfont/iconfont.css');
 </style>

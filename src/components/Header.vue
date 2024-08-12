@@ -18,27 +18,94 @@
         </ul>
         <ul class="ml-auto layui-nav">
           <!-- 未登入的状态 -->
-          <li class="layui-nav-item">
-            <router-link class="iconfont icon-touxiang layui-hide-xs" to="/user123123"></router-link>
-          </li>
-          <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
-            <router-link :to="{ name: 'login' }">登入</router-link>
-          </li>
-          <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
-            <router-link :to="{ name: 'register' }">注册</router-link>
-          </li>
-          <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
-            <a href onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
-          </li>
-          <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
-            <a href onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
-          </li>
+          <template v-if="!isLogin">
+            <li class="layui-nav-item">
+              <router-link class="iconfont icon-touxiang layui-hide-xs" to="/user123123"></router-link>
+            </li>
+            <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
+              <router-link :to="{ name: 'login' }">登入</router-link>
+            </li>
+            <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
+              <router-link :to="{ name: 'register' }">注册</router-link>
+            </li>
+            <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
+              <a href onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+            </li>
+            <li class="layui-nav-item layui-hide-sm layui-show-md-inline-block">
+              <a href onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+            </li>
+          </template>
+          <!-- 已登入的状态 -->
+          <template v-else>
+            <!-- <li class="layui-nav-item">
+              <div class="flex items-center">
+                <a href="javascript:;" class="layui-hide-xs">
+                  <span class="pr-2">{{ userInfo.nickname }}</span>
+                  <img :src="userInfo.avatar" alt="头像" class="w-[40px] h-[40px] rounded-full" />
+                </a>
+              </div>
+            </li> -->
+            <li class="layui-nav-item" @mouseover="show()" @mouseleave="hide()">
+              <a class="fly-nav-avatar">
+                <cite class="layui-hide-xs">{{ userInfo.nickname }}</cite>
+                <!-- <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i> -->
+                <i v-show="userInfo.vip !== '0'" class="layui-badge fly-badge-vip layui-hide-xs">VIP{{ userInfo.vip }}</i>
+                <img v-lazy="userInfo.avatar" class="w-[40px] h-[40px] rounded-full" />
+              </a>
+              <dl class="layui-nav-child layui-anim layui-anim-upbit" :class="{ 'layui-show': isHover }">
+                <dd class="cursor-pointer flex items-center">
+                  <a> <i class="layui-icon !text-[18px] mr-2">&#xe620;</i>基本设置 </a>
+                </dd>
+                <dd class="cursor-pointer flex items-center">
+                  <a> <i class="iconfont icon-tongzhi !text-[18px] mr-2"></i>我的消息 </a>
+                </dd>
+                <dd class="cursor-pointer flex items-center">
+                  <a> <i class="layui-icon !text-[18px] mr-2">&#xe68e;</i>我的主页 </a>
+                </dd>
+                <hr style="margin: 5px 0" />
+                <dd>
+                  <a href="javascript: void(0)" style="text-align: center" @click="logout()">退出</a>
+                </dd>
+              </dl>
+            </li>
+          </template>
         </ul>
       </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, toRef } from 'vue'
+import { useUserStore } from '../store/user'
+
+const userStore = useUserStore()
+console.log('🚀 ~ userStore:', userStore.user)
+const isLogin = toRef(userStore, 'isLogin')
+const userInfo = toRef(userStore, 'user')
+
+const isHover = ref(false)
+const timer = ref(null)
+
+console.log('userInfo', userStore.user)
+
+const show = () => {
+  clearTimeout(timer.value)
+  timer.value = setTimeout(() => {
+    isHover.value = true
+  }, 200)
+}
+
+const hide = () => {
+  clearTimeout(timer.value)
+  timer.value = setTimeout(() => {
+    isHover.value = false
+  }, 500)
+}
+
+const logout = () => {
+  // userStore.logout()
+}
+</script>
 
 <style lang="scss" scoped></style>
