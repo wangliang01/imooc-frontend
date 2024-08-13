@@ -2,7 +2,6 @@ export default [
   {
     path: '/user',
     redirect: '/user/center',
-    linkActiveClass: 'layui-this',
     component: () => import('@/views/user/index.vue'),
     children: [
       {
@@ -13,7 +12,30 @@ export default [
       {
         path: 'setting',
         name: 'userSetting',
-        component: () => import('@/views/user/setting/index.vue')
+        redirect: '/user/setting/info',
+        component: () => import('@/views/user/setting/index.vue'),
+        children: [
+          {
+            path: 'info',
+            name: 'info',
+            component: () => import('@/views/user/setting/components/info.vue')
+          },
+          {
+            path: 'password',
+            name: 'password',
+            component: () => import('@/views/user/setting/components/password.vue')
+          },
+          {
+            path: 'avatar',
+            name: 'avatar',
+            component: () => import('@/views/user/setting/components/avatar.vue')
+          },
+          {
+            path: 'accountBinding',
+            name: 'accountBinding',
+            component: () => import('@/views/user/setting/components/accountBinding.vue')
+          }
+        ]
       },
       {
         path: 'message',
