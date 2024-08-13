@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="bg-white rounded-sm">
     <div class="overflow">
-      <table class="layui-table" border="0">
+      <table class="layui-table !m-0" border="0">
         <thead>
           <tr class="layui-table-header">
             <th>

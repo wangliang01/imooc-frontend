@@ -1,7 +1,7 @@
 <template>
   <div class="layui-container flex">
     <div class="flex pt-4 flex-1 gap-4">
-      <ul class="layui-nav layui-nav-tree h-100%">
+      <ul class="layui-nav layui-nav-tree h-100% sm:hidden md:block">
         <li v-for="(item, index) in navList" :key="`navList-${index}`" class="layui-nav-item layui-nav-itemed">
           <router-link :to="{ name: item.name }" class="!flex items-center" active-class="layui-this">
             <i class="layui-icon mr-2" :class="item.icon"></i>

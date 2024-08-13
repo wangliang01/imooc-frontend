@@ -1,5 +1,5 @@
 <template>
-  <div class="fly-panel fly-panel-user" pad20>
+  <div class="fly-panel fly-panel-user !mb-0" pad20>
     <div id="LAY_msg" class="layui-tab layui-tab-brief" lay-filter="user" style="margin-top: 15px">
       <button id="LAY_delallmsg" class="layui-btn layui-btn-danger" @click="clearAll()">清空全部消息</button>
       <div id="LAY_minemsg" style="margin-top: 10px">

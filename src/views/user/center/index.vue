@@ -2,7 +2,7 @@
   <div class="bg-white rounded-sm p-4">
     <div class="text-[#666] text-lg">Hi, Admin，你已经是我们的正式会员！</div>
     <div class="mt-4">
-      <div class="flex gap-4">
+      <div class="md:flex gap-4">
         <div class="flex-1 border rounded-sm">
           <div class="h-[50px] leading-[50px] px-4 border-b border-dotted border-[#e9e9e9] text-[#333]">我的会员信息</div>
           <div class="px-4 py-3">
@@ -16,7 +16,7 @@
             </p>
           </div>
         </div>
-        <div class="flex-1">
+        <div class="flex-1 mt-4 md:mt-0">
           <Sign class="border !m-0"></Sign>
         </div>
       </div>
@@ -24,7 +24,7 @@
         <div class="border rounded-sm">
           <div class="h-[50px] leading-[50px] px-4 border-b border-dotted border-[#e9e9e9] text-[#333]">快捷方式</div>
           <div class="px-4 py-3" style="height: auto">
-            <ul class="grid gap-5 grid-flow-row sm:grid-cols-4 xs:grid-cols-3">
+            <ul class="grid gap-5 grid-flow-row sm:grid-cols-3 lg:grid-cols-4">
               <li v-for="(item, index) in list" :key="'user-center' + index" class="cursor-pointer text-center">
                 <a>
                   <div class="layui-icon shortcut !text-[20px]" :class="item.icon"></div>
