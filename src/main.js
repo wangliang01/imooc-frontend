@@ -8,5 +8,7 @@ import store from './store'
 import Alert from './components/Alert/index'
 import Confirm from './components/Confirm/index'
 import VueLazyLoad from 'vue3-lazyload'
+// 加入权限
+import permission from './router/permission'
 
-createApp(App).use(Layui).use(router).use(store).use(Alert).use(Confirm).use(VueLazyLoad).mount('#app')
+createApp(App).use(Layui).use(router).use(store).use(Alert).use(Confirm).use(VueLazyLoad).use(permission).mount('#app')

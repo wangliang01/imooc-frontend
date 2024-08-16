@@ -39,3 +39,15 @@ export function register(data) {
   // 发送POST请求到/register路径进行用户注册
   return request.post('/register', data)
 }
+
+/**
+ * 获取用户信息
+ *
+ * 本函数通过发送HTTP GET请求，从服务器获取用户信息
+ * 不接受任何参数，并返回一个Promise对象，该对象在请求完成后解析为用户信息数据
+ *
+ * @returns {Promise} 返回一个Promise对象，解析为用户信息数据
+ */
+export function getUserInfo() {
+  return request.get('/getUserInfo')
+}

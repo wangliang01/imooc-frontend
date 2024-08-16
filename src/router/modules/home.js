@@ -1,11 +1,12 @@
 export default [
   {
     path: '/',
-    name: 'home',
+    redirect: '/index',
     component: () => import('@/views/home/index.vue'),
+    meta: { noAuth: true },
     children: [
       {
-        path: '',
+        path: 'index',
         name: 'index',
         component: () => import('@/views/home/layout/tpl1.vue')
       },

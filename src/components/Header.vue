@@ -54,13 +54,13 @@
               </a>
               <dl class="layui-nav-child layui-anim layui-anim-upbit" :class="{ 'layui-show': isHover }">
                 <dd class="cursor-pointer flex items-center">
-                  <a> <i class="layui-icon !text-[18px] mr-2">&#xe620;</i>基本设置 </a>
+                  <router-link :to="{ name: 'userSetting' }"> <i class="layui-icon layui-icon-set !text-[18px] mr-2"></i>基本设置 </router-link>
                 </dd>
                 <dd class="cursor-pointer flex items-center">
-                  <a> <i class="iconfont icon-tongzhi !text-[18px] mr-2"></i>我的消息 </a>
+                  <router-link :to="{ name: 'userMessage' }"> <i class="layui-icon layui-icon-reply-fill !text-[18px] mr-2"></i>我的消息 </router-link>
                 </dd>
                 <dd class="cursor-pointer flex items-center">
-                  <a> <i class="layui-icon !text-[18px] mr-2">&#xe68e;</i>我的主页 </a>
+                  <router-link :to="{ name: 'userInfo' }"> <i class="layui-icon layui-icon-home !text-[18px] mr-2"></i>我的主页 </router-link>
                 </dd>
                 <hr style="margin: 5px 0" />
                 <dd>
@@ -78,6 +78,9 @@
 <script setup>
 import { ref, toRef } from 'vue'
 import { useUserStore } from '../store/user'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const userStore = useUserStore()
 console.log('🚀 ~ userStore:', userStore.user)
@@ -104,7 +107,8 @@ const hide = () => {
 }
 
 const logout = () => {
-  // userStore.logout()
+  userStore.logout()
+  router.push({ name: 'index' })
 }
 </script>
 
