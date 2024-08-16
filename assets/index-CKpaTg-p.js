@@ -1,1 +1,0 @@
-import{_ as e,c as t,k as c}from"./index-1yECeLeH.js";const s={},n={class:"flex items-center justify-center bg-white"};function r(o,_){return c(),t("div",n,"正在开发中...")}const i=e(s,[["render",r]]);export{i as default};
