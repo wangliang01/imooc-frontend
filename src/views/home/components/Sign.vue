@@ -35,20 +35,35 @@
       </template>
     </div>
     <sign-info :is-show="isShow" @close-modal="close()"></sign-info>
-    <!-- <sign-list :isShow="showList" @closeModal="close()"></sign-list> -->
+    <sign-list v-model="showList"></sign-list>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import SignInfo from './SignInfo.vue'
+import SignList from './SignList.vue'
 
 const isShow = ref(false)
 
+const showList = ref(false)
+
+// 显示签到说明
 const showInfo = () => {
   isShow.value = true
 }
 
+// 显示签到排行榜
+const showTop = () => {
+  showList.value = true
+}
+
+// 签到
+const sign = () => {
+  console.log('签到')
+}
+
+// 关闭弹窗
 const close = () => {
   isShow.value = false
 }

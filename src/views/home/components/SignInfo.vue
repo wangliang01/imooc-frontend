@@ -1,10 +1,10 @@
 <template>
   <div v-show="isShow" class="modal">
     <div class="mask" @click="close()"></div>
-    <div class="layui-layer layui-layer-page" :class="{ active: isShow }">
+    <div class="layui-layer layui-layer-page" :class="{ bounceIn: isShow, bounceOut: isClose }">
       <div class="layui-layer-title">
         签到说明
-        <i class="layui-icon layui-icon-close" @click="close()"></i>
+        <i class="layui-icon layui-icon-close cursor-pointer" @click="close()"></i>
       </div>
       <div class="layui-layer-content p-4">
         <div class="layui-text">
@@ -43,9 +43,9 @@
               </tr>
             </tbody>
           </table>
-          <div>
+          <div class="text-sm">
             <p>中间若有间隔，则连续天数重新计算</p>
-            <p class="orange">不可复用程序自动签到，否则积分清零</p>
+            <p class="text-orange-500">不可复用程序自动签到，否则积分清零</p>
           </div>
         </div>
       </div>
@@ -54,6 +54,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 defineProps({
   isShow: {
     default: false,
@@ -62,8 +63,14 @@ defineProps({
 })
 
 const emits = defineEmits(['closeModal'])
+
+const isClose = ref(false)
 const close = () => {
-  emits('closeModal')
+  isClose.value = true
+  setTimeout(() => {
+    emits('closeModal')
+    isClose.value = false
+  }, 600)
 }
 </script>
 
@@ -74,15 +81,47 @@ const close = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1000;
 }
 
 .layui-layer {
   position: fixed;
+  width: 300px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  perspective: 500px;
   z-index: 1001;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bounceOut {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+}
+
+.layui-layer.bounceIn {
+  animation: bounceIn 0.6s;
+}
+
+.layui-layer.bounceOut {
+  animation: bounceOut 0.6s;
 }
 </style>
