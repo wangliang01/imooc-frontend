@@ -1750,6 +1750,13 @@ body .fly-user-main {
   color: #fff;
 }
 
+.layui-layer-title {
+  padding: 0 16px !important;
+  display: flex;
+  justify-content: space-between;
+  items-align: center;
+}
+
 /* 广告 */
 .fly-ad {
   position: relative;

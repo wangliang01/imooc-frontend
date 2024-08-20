@@ -34,11 +34,24 @@
         </span>
       </template>
     </div>
-    <!-- <sign-info :isShow="isShow" @closeModal="close()"></sign-info> -->
+    <sign-info :is-show="isShow" @close-modal="close()"></sign-info>
     <!-- <sign-list :isShow="showList" @closeModal="close()"></sign-list> -->
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import SignInfo from './SignInfo.vue'
+
+const isShow = ref(false)
+
+const showInfo = () => {
+  isShow.value = true
+}
+
+const close = () => {
+  isShow.value = false
+}
+</script>
 
 <style lang="scss" scoped></style>
