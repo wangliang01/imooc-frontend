@@ -12,7 +12,7 @@
           </router-link>
         </h2>
         <div class="fly-list-info flex items-center mt-[10px]">
-          <router-link :to="{ name: 'home', params: { uid: item.user.id } }">
+          <router-link :to="{ name: 'userCenter' }">
             <cite>{{ item.user.nickname }}</cite>
             <i v-if="item.user.vip !== '0'" class="layui-badge fly-badge-vip">{{ 'VIP' + item.user.vip }}</i>
           </router-link>
@@ -20,7 +20,7 @@
 
           <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
             <i class="iconfont icon-kiss"></i>
-            {{ item.fav }}
+            {{ item.favs }}
           </span>
           <span v-show="item.status !== '0'" class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
           <span class="fly-list-nums">

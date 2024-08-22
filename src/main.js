@@ -11,4 +11,4 @@ import VueLazyLoad from 'vue3-lazyload'
 // 加入权限
 import permission from './router/permission'
 
-createApp(App).use(Layui).use(router).use(store).use(Alert).use(Confirm).use(VueLazyLoad).use(permission).mount('#app')
+createApp(App).use(store).use(Layui).use(router).use(Alert).use(Confirm).use(VueLazyLoad).use(permission).mount('#app')

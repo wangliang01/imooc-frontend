@@ -1,6 +1,8 @@
 import axios from 'axios'
 import handleError from './handleError'
+import local from '@/utils/local'
 const CancelToken = axios.CancelToken
+
 class HttpRequest {
   constructor(baseUrl) {
     this.baseUrl = baseUrl
@@ -40,6 +42,15 @@ class HttpRequest {
           // 将取消请求的函数存储到请求配置对象中
           this.requestMap.set(key, cancel)
         })
+
+        // 添加token
+        const token = local.get('token')
+        console.log('🚀 ~ HttpRequest ~ interceptors ~ token:', token)
+
+        if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`
+        }
+        console.log('config', config)
         // 返回经过处理的配置对象
         return config
       },

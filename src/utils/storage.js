@@ -27,14 +27,12 @@ class Storage {
       {},
       {
         get: (target, prop) => {
-          const data = JSON.parse(storage.getItem(namespaceKey))
+          const data = JSON.parse(storage.getItem(namespaceKey)) || {}
           return data[prop]
         },
         set: (target, prop, value) => {
-          let data = JSON.parse(storage.getItem(namespaceKey))
-          if (!data) {
-            data = {}
-          }
+          const data = JSON.parse(storage.getItem(namespaceKey)) || {}
+
           data[prop] = value
           storage.setItem(namespaceKey, JSON.stringify(data))
           return true
