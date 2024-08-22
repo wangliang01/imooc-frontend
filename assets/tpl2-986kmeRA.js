@@ -1,1 +1,0 @@
-import{_ as c,b as e,A as o,c as t}from"./Links-DzAzmS-C.js";import{c as _,b as a,d as s,n as i}from"./index-BJU56cF3.js";const n={class:"layui-container"},l={class:"layui-row flex gap-4"},d={class:"layui-col-md8"},r={class:"layui-col-md4"},v={__name:"tpl2",setup(m){return(p,f)=>(i(),_("div",n,[a("div",l,[a("div",d,[s(c)]),a("div",r,[s(e),s(o),s(t)])])]))}};export{v as default};

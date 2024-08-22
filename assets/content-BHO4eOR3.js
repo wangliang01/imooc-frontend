@@ -1,0 +1,1 @@
+import{S as t}from"./index-DfYCWNPS.js";function u(e){return t.get("/public/list",e)}function i(){return t.get("/public/tips")}function r(){return t.get("/public/links")}function s(){return t.get("/public/topWeek")}function g(){return t.get("/user/fav")}export{i as a,s as b,r as c,u as g,g as u};
