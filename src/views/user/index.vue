@@ -18,6 +18,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import { message } from '@/components/Message/index.js'
+
+message('欢迎来到imooc-frontend')
+message('欢迎来到imooc-frontend')
+message('欢迎来到imooc-frontend')
+message('欢迎来到imooc-frontend')
 
 const navList = ref([
   {
