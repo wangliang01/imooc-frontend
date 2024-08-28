@@ -1,1 +1,0 @@
-import{_ as e,c as t,n as c}from"./index-D-FjaANc.js";const n={},s={class:"flex items-center justify-center bg-white"};function r(o,_){return c(),t("div",s,"正在开发中...")}const i=e(n,[["render",r]]);export{i as default};
