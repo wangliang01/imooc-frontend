@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import local from '../utils/local'
 import { getUserInfo } from '../api/login'
+import { updateUserInfo } from '../api/user'
 export const useUserStore = defineStore('user', {
   state: () => ({
     user: local.get('user') || {},
@@ -12,7 +13,11 @@ export const useUserStore = defineStore('user', {
     }
   },
   actions: {
-    updateUser(data) {},
+    async updateUser(data) {
+      const res = await updateUserInfo(data)
+      await this.fetchUser()
+      return res
+    },
     async fetchUser() {
       const res = await getUserInfo()
       this.setUser(res.data)

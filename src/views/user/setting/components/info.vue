@@ -62,6 +62,10 @@
 import { ref } from 'vue'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
+import { useUserStore } from '@/store/user'
+import { toast } from '@/utils/toast'
+
+const userStore = useUserStore()
 const gender = ref('1')
 
 const { defineField, errors, validate } = useForm({
@@ -80,7 +84,6 @@ const [regmark, regmarkAttrs] = defineField('regmark')
 
 const submit = async () => {
   const { valid } = await validate()
-  console.log('valid', valid)
   if (!valid) return false
   const data = {
     username: username.value,
@@ -89,11 +92,10 @@ const submit = async () => {
     gender: gender.value,
     regmark: regmark.value
   }
+
   console.log('data', data)
 
-  // const res = await userStore.updateUser(data)
-  // if (res) {
-  //   ElMessage.success('修改成功')
-  // }
+  await userStore.updateUser(data)
+  toast('修改成功')
 }
 </script>

@@ -24,13 +24,3 @@ export function getLinks() {
 export function getTopWeek() {
   return request.get('/public/topWeek')
 }
-
-// 用户签到
-export function userSign() {
-  return request.get('/user/fav')
-}
-
-// 获取用户签到信息
-export function getUserSign() {
-  return request.get('/user/sign')
-}

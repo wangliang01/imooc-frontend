@@ -43,7 +43,7 @@
 import { ref, computed } from 'vue'
 import SignInfo from './SignInfo.vue'
 import SignList from './SignList.vue'
-import { userSign } from '@/api/content'
+import { userSign } from '@/api/user'
 import { useUserStore } from '../../../store/user'
 
 const isShow = ref(false)
