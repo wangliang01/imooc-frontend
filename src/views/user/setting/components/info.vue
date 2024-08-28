@@ -35,13 +35,13 @@
       <label for="L_city" class="layui-form-label">性别</label>
       <div class="layui-input-inline gray !ml-2 !mt-[8px]">
         <label for="gender1" class="mr1">
-          <input id="gender1" v-model="gender" type="radio" name="sex" value="0" title="男" />
-          <i class="layui-icon layui-icon-circle" :class="{ 'layui-icon-radio': gender === '0' }"></i>
+          <input id="gender1" v-model="gender" type="radio" name="sex" value="1" title="男" />
+          <i class="layui-icon layui-icon-circle" :class="{ 'layui-icon-radio': gender === '1' }"></i>
           男
         </label>
         <label for="gender2">
-          <input id="gender2" v-model="gender" type="radio" name="sex" value="1" title="女" />
-          <i class="layui-icon layui-icon-circle" :class="{ 'layui-icon-radio': gender === '1' }"></i>
+          <input id="gender2" v-model="gender" type="radio" name="sex" value="0" title="女" />
+          <i class="layui-icon layui-icon-circle" :class="{ 'layui-icon-radio': gender === '0' }"></i>
           女
         </label>
       </div>
@@ -58,4 +58,7 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+const gender = ref('1')
+</script>

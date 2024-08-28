@@ -108,6 +108,7 @@ const hide = () => {
 
 const logout = () => {
   userStore.logout()
+  hide()
   router.push({ name: 'index' })
 }
 </script>
