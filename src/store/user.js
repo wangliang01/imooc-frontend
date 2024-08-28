@@ -12,6 +12,7 @@ export const useUserStore = defineStore('user', {
     }
   },
   actions: {
+    updateUser(data) {},
     async fetchUser() {
       const res = await getUserInfo()
       this.setUser(res.data)
