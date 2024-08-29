@@ -72,8 +72,8 @@ const { defineField, errors, validate } = useForm({
   validationSchema: {
     username: yup.string().required({ message: '请输入用户名' }).email({ message: '请输入正确的邮箱' }),
     nickname: yup.string().required({ message: '请输入昵称' }),
-    location: yup.string().required({ message: '请输入城市' }),
-    regmark: yup.string().required({ message: '请输入备注' })
+    location: yup.string().required({ message: '请输入城市' }).optional(),
+    regmark: yup.string().required({ message: '请输入备注' }).optional()
   }
 })
 
